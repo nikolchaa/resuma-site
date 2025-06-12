@@ -11,9 +11,49 @@ import { setInitialTheme } from "./lib/setInitialTheme";
 
 import { motion as m } from "motion/react";
 import { Button } from "./components/ui/button";
-import { Heart } from "lucide-react";
+import { useEffect, useState } from "preact/hooks";
 
 export function App() {
+  const [version, setVersion] = useState("Loading...");
+  const [os, setOS] = useState<"Windows" | "MacOS" | "Linux" | "Other">(
+    "Other"
+  );
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const platform =
+      (navigator as any).userAgentData?.platform || navigator.platform || "";
+    const platformLower = platform.toLowerCase();
+
+    if (platformLower.includes("win") || /windows/i.test(userAgent)) {
+      setOS("Windows");
+    } else if (
+      platformLower.includes("mac") ||
+      /macintosh|mac os x/i.test(userAgent)
+    ) {
+      setOS("MacOS");
+    } else if (platformLower.includes("linux") || /linux/i.test(userAgent)) {
+      setOS("Linux");
+    } else {
+      setOS("Other");
+    }
+  }, []);
+
+  useEffect(() => {
+    fetch(
+      "https://api.github.com/repos/nikolchaa/tauri-plugin-hwinfo/releases/latest"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.tag_name) {
+          setVersion(data.tag_name);
+        } else {
+          setVersion("Unknown");
+        }
+      })
+      .catch(() => setVersion("Unavailable"));
+  }, []);
+
   return (
     <>
       <header className='relative w-full h-[100dvh] overflow-hidden flex flex-col items-center justify-center gap-6'>
@@ -52,21 +92,41 @@ export function App() {
           className='absolute bottom-16 flex flex-col gap-4 items-center justify-center w-full text-center'
         >
           <div className={"flex gap-4"}>
-            <Button variant='outline'>
+            <Button variant={os === "Windows" ? "secondary" : "outline"}>
               <WindowsLogo className={"h-6 w-6"} />
               Download for Windows
             </Button>
-            <Button variant='outline'>
-              <AppleLogo className={"text-foreground h-6 w-6"} />
+            <Button variant={os === "MacOS" ? "secondary" : "outline"}>
+              <AppleLogo className={"h-6 w-6"} />
               Download for MacOS
             </Button>
-            <Button variant='outline'>
-              <LinuxLogo className={"text-foreground h-6 w-6"} />
+            <Button variant={os === "Linux" ? "secondary" : "outline"}>
+              <LinuxLogo className={"h-6 w-6"} />
               Download for Linux
             </Button>
           </div>
+
           <span className={"text-muted-foreground"}>
-            v1.0.0 | Made with <Heart className={"h-4 w-4 inline"} />
+            {`${version}`}
+            <span className='mx-4'>|</span>
+            <a
+              href='https://github.com/nikolchaa/resuma'
+              target='_blank'
+              rel='noreferrer'
+              className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
+            >
+              GitHub Repo
+            </a>
+
+            <span className='mx-4'>|</span>
+            <a
+              href='https://github.com/nikolchaa/resuma/issues'
+              target='_blank'
+              rel='noreferrer'
+              className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
+            >
+              Privacy Policy
+            </a>
           </span>
         </m.div>
       </header>
