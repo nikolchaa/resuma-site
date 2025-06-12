@@ -9,11 +9,14 @@ import WindowsLogo from "@/assets/Windows.svg?react";
 import LinuxLogo from "@/assets/Linux.svg?react";
 import { setInitialTheme } from "./lib/setInitialTheme";
 
-import { motion as m } from "motion/react";
 import { Button } from "./components/ui/button";
 import { useEffect, useState } from "preact/hooks";
 import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
+
+interface NavigatorUAData {
+  platform: string;
+}
 
 export function App() {
   const [version, setVersion] = useState("Loading...");
@@ -43,7 +46,10 @@ export function App() {
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const platform =
-      (navigator as any).userAgentData?.platform || navigator.platform || "";
+      (navigator as Navigator & { userAgentData?: NavigatorUAData })
+        .userAgentData?.platform ||
+      navigator.platform ||
+      "";
     const platformLower = platform.toLowerCase();
 
     if (platformLower.includes("win") || /windows/i.test(userAgent)) {
