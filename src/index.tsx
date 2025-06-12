@@ -13,6 +13,7 @@ import { Button } from "./components/ui/button";
 import { useEffect, useState } from "preact/hooks";
 import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
+import ClickSpark from "./components/ClickSpark";
 
 interface NavigatorUAData {
   platform: string;
@@ -83,7 +84,13 @@ export function App() {
   }, []);
 
   return (
-    <>
+    <ClickSpark
+      sparkColor='#00d9cb'
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+    >
       <header className='relative w-full h-[calc(100vh-4rem)] sm:h-screen overflow-hidden flex flex-col items-center justify-center gap-6'>
         <VantaBackground />
 
@@ -149,11 +156,15 @@ export function App() {
             "flex flex-col items-center justify-center pt-20 pb-10 max-w-4xl mx-auto"
           }
         >
-          <ScrollRevealText text='Build your resume in minutes.' />
+          <ScrollRevealText
+            text='Build your resume in minutes.'
+            highlight='minutes'
+          />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto'>
-              Resuma is a privacy-first resume builder powered by local AI - no
-              internet, no delays, no data leaks.
+              Resuma is a privacy-first resume builder powered by local AI.{" "}
+              <br />
+              No internet, no delays, no data leaks.
             </p>
           </ScrollReveal>
         </section>
@@ -162,7 +173,10 @@ export function App() {
             "flex flex-col items-center justify-center py-10 max-w-4xl mx-auto"
           }
         >
-          <ScrollRevealText text='No design skills required.' />
+          <ScrollRevealText
+            text='No design skills required.'
+            highlight='design'
+          />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto'>
               Just focus on your experience. Resuma handles layout, spacing, and
@@ -175,7 +189,10 @@ export function App() {
             "flex flex-col items-center justify-center pt-10 pb-20 max-w-4xl mx-auto"
           }
         >
-          <ScrollRevealText text='Export to PDF with a single click.' />
+          <ScrollRevealText
+            text='Export to PDF with a single click.'
+            highlight='single'
+          />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto'>
               Once you’re done, generate a perfectly formatted PDF in seconds.
@@ -184,7 +201,7 @@ export function App() {
           </ScrollReveal>
         </section>
       </main>
-    </>
+    </ClickSpark>
   );
 }
 
