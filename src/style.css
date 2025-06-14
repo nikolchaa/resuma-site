@@ -261,15 +261,3 @@
 *::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
-
-.vignette-bg {
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-}
-
-.vignette-bg.light {
-  background: linear-gradient(
-    to top,
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
-}

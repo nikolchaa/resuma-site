@@ -52,7 +52,9 @@ export const VantaBackground = () => {
     <div className='absolute inset-0 pointer-events-none bg-background -z-20'>
       <div className='absolute inset-0 bottom-1 -z-10' ref={vantaRef} />
       <div
-        className={`absolute inset-0 vignette-bg ${isDark ? "" : "light"}`}
+        className={`absolute inset-0 -z-10 bg-gradient-to-t ${
+          isDark ? "from-black to-black/0" : "from-white to-white/0"
+        }`}
       />
     </div>
   );

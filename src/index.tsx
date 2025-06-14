@@ -14,6 +14,7 @@ import { useEffect, useState } from "preact/hooks";
 import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
 import ClickSpark from "./components/ClickSpark";
+import { Footer } from "./components/Footer";
 
 interface NavigatorUAData {
   platform: string;
@@ -150,7 +151,7 @@ export function App() {
         </ScrollReveal>
       </header>
 
-      <main className='flex flex-col items-center justify-center gap-4 p-4 mb-1000'>
+      <main className='flex flex-col items-center justify-center gap-4 p-4'>
         <section
           className={
             "flex flex-col items-center justify-center pt-20 pb-10 max-w-4xl mx-auto"
@@ -201,6 +202,8 @@ export function App() {
           </ScrollReveal>
         </section>
       </main>
+
+      <Footer />
     </ClickSpark>
   );
 }
