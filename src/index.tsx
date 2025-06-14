@@ -15,6 +15,13 @@ import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
 import ClickSpark from "./components/ClickSpark";
 import { Footer } from "./components/Footer";
+import SystemRequirements from "./components/Requirements";
+
+declare global {
+  interface Window {
+    lenis?: Lenis;
+  }
+}
 
 interface NavigatorUAData {
   platform: string;
@@ -39,6 +46,8 @@ export function App() {
     };
 
     requestAnimationFrame(raf);
+
+    window.lenis = lenis;
 
     return () => {
       lenis.destroy();
@@ -127,17 +136,21 @@ export function App() {
             </Button>
           </div>
 
-          <span className='text-muted-foreground'>
+          <nav className='text-muted-foreground'>
             {`${version}`}
             <span className='mx-4'>|</span>
             <a
-              href='https://github.com/nikolchaa/resuma/issues'
-              target='_blank'
-              rel='noreferrer'
+              href='#requirements'
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.getElementById("requirements");
+                if (target) window.lenis?.scrollTo(target);
+              }}
               className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
             >
               Requirements
             </a>
+
             <span className='mx-4'>|</span>
             <a
               href='https://github.com/nikolchaa/resuma'
@@ -147,7 +160,7 @@ export function App() {
             >
               GitHub
             </a>
-          </span>
+          </nav>
         </ScrollReveal>
       </header>
 
@@ -169,22 +182,25 @@ export function App() {
             </p>
           </ScrollReveal>
         </section>
+
         <section
           className={
             "flex flex-col items-center justify-center py-10 max-w-4xl mx-auto"
           }
+          id={"requirements"}
         >
           <ScrollRevealText
-            text='No design skills required.'
-            highlight='design'
+            text='Resuma system requirements.'
+            highlight='requirements'
           />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto'>
-              Just focus on your experience. Resuma handles layout, spacing, and
-              formatting - so your resume always looks great.
+              Resuma runs on pretty much any modern desktop computer.
             </p>
           </ScrollReveal>
+          <SystemRequirements />
         </section>
+
         <section
           className={
             "flex flex-col items-center justify-center pt-10 pb-20 max-w-4xl mx-auto"
