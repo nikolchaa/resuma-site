@@ -97,8 +97,8 @@ export default function SystemRequirements() {
                 (HIP)
               </li>
               <li>
-                <strong>Estimated total:</strong> ~850MB to 2.5GB depending on
-                runtime and model
+                <strong>Estimated total:</strong> ~850MB to ~2.5GB minimum
+                depending on runtime and model
               </li>
             </ul>
           </CardContent>

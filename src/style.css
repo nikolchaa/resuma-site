@@ -261,3 +261,8 @@
 *::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+::selection {
+  background-color: var(--primary);
+  color: var(--background);
+}

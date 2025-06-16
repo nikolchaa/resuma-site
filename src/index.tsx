@@ -13,9 +13,15 @@ import { Button } from "./components/ui/button";
 import { useEffect, useState } from "preact/hooks";
 import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
-import ClickSpark from "./components/ClickSpark";
 import { Footer } from "./components/Footer";
 import SystemRequirements from "./components/Requirements";
+import { ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./components/ui/dropdown-menu";
 
 declare global {
   interface Window {
@@ -67,7 +73,7 @@ export function App() {
       setOS("Windows");
     } else if (
       platformLower.includes("mac") ||
-      /macintosh|mac os x/i.test(userAgent)
+      /macintosh|mac os x|iPhone/i.test(userAgent)
     ) {
       setOS("MacOS");
     } else if (platformLower.includes("linux") || /linux/i.test(userAgent)) {
@@ -94,22 +100,16 @@ export function App() {
   }, []);
 
   return (
-    <ClickSpark
-      sparkColor='#00d9cb'
-      sparkSize={10}
-      sparkRadius={15}
-      sparkCount={8}
-      duration={400}
-    >
+    <>
       <header className='relative w-full h-[calc(100vh-4rem)] sm:h-screen overflow-hidden flex flex-col items-center justify-center gap-6'>
         <VantaBackground />
 
         <ScrollReveal delay={0}>
-          <Logo className='w-132 text-foreground drop-shadow-lg' />
+          <Logo className='max-w-132 w-[calc(100vw-2rem)] text-foreground drop-shadow-lg' />
         </ScrollReveal>
 
         <ScrollReveal delay={0.5}>
-          <p className='text-xl w-132 text-center leading-6 drop-shadow-lg'>
+          <p className='text-md sm:text-xl max-w-132 text-center leading-6 drop-shadow-lg mx-4'>
             Resuma is an open-source desktop application for building beautiful
             resumes. Fast, flexible, and privacy-oriented.
           </p>
@@ -119,7 +119,8 @@ export function App() {
           delay={1}
           className='absolute bottom-16 flex flex-col gap-4 items-center justify-center w-full text-center'
         >
-          <div className='flex gap-4'>
+          {/* Visible on PC */}
+          <div className='gap-4 hidden md:flex'>
             <Button variant={os === "Windows" ? "secondary" : "outline"}>
               <WindowsLogo className='h-6 w-6' />
               Download for Windows
@@ -134,6 +135,70 @@ export function App() {
               Download for Linux{" "}
               <span className='text-muted-foreground'>(AppImage)</span>
             </Button>
+          </div>
+
+          {/* Visible on Mobile layout */}
+          <div className='flex gap-4 md:hidden'>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type='button'
+                  className="dark:backdrop-blur-sm select-none hover:cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3"
+                >
+                  {os === "Windows" ? (
+                    <>
+                      <WindowsLogo className='h-6 w-6' />
+                      Download for Windows
+                    </>
+                  ) : os === "MacOS" ? (
+                    <>
+                      <AppleLogo className='h-6 w-6' />
+                      Download for MacOS{" "}
+                      <span className='text-muted-foreground'>(ARM64)</span>
+                    </>
+                  ) : (
+                    <>
+                      <LinuxLogo className='h-6 w-6' />
+                      Download for Linux{" "}
+                      <span className='text-muted-foreground'>(AppImage)</span>
+                    </>
+                  )}
+                  <ChevronDown className='ml-2 h-4 w-4' />
+                </button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent
+                align='center'
+                className={
+                  "w-56 mt-2 rounded-md border bg-background shadow-xs p-1 select-none gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:border-input dark:hover:bg-input/50 dark:backdrop-blur-sm"
+                }
+              >
+                <DropdownMenuItem
+                  onClick={() => console.log("Download for Windows")}
+                >
+                  <WindowsLogo className='mr-2 h-5 w-5' />
+                  Windows
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => console.log("Download for MacOS")}
+                >
+                  <AppleLogo className='mr-2 h-5 w-5' />
+                  MacOS{" "}
+                  <span className='ml-auto text-xs text-muted-foreground'>
+                    (ARM64)
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => console.log("Download for Linux")}
+                >
+                  <LinuxLogo className='mr-2 h-5 w-5' />
+                  Linux{" "}
+                  <span className='ml-auto text-xs text-muted-foreground'>
+                    (AppImage)
+                  </span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <nav className='text-muted-foreground'>
@@ -176,9 +241,7 @@ export function App() {
           />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto'>
-              Resuma is a privacy-first resume builder powered by local AI.{" "}
-              <br />
-              No internet, no delays, no data leaks.
+              Resuma is a privacy-first resume builder powered by local AI.
             </p>
           </ScrollReveal>
         </section>
@@ -220,7 +283,7 @@ export function App() {
       </main>
 
       <Footer />
-    </ClickSpark>
+    </>
   );
 }
 
