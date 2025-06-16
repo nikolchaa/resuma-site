@@ -9,7 +9,7 @@ export function ScrollRevealText({
   highlight?: string;
 }) {
   const ref = useRef<HTMLHeadingElement>(null);
-  const isInView = useInView(ref, { margin: "-10% 0px" });
+  const isInView = useInView(ref, { margin: "-7.5% 0px" });
   const delay = 0.05;
 
   const words = text.split(" ");
@@ -65,7 +65,7 @@ export function ScrollReveal({
   y?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { margin: "-10% 0px" });
+  const isInView = useInView(ref, { margin: "-7.5% 0px" });
 
   const [hasAnimated, setHasAnimated] = useState(false);
   const shouldTrack = delay > 0;

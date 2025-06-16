@@ -69,9 +69,6 @@ export default function SystemRequirements() {
                   <li>
                     <strong>CUDA:</strong> NVIDIA GPUs with CUDA 12.4 support
                   </li>
-                  <li>
-                    <strong>CPU:</strong> Supported but slower performance
-                  </li>
                 </ul>
               </li>
             </ul>
@@ -86,6 +83,9 @@ export default function SystemRequirements() {
               <Disc className='h-4 w-4 mr-1 inline text-primary' /> Disk Space
             </CardTitle>
             <ul className='list-disc list-inside'>
+              <li>
+                <strong>Installer size:</strong> ~4MB
+              </li>
               <li>
                 <strong>App size:</strong> ~16MB installed
               </li>
