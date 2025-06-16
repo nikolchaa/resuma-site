@@ -15,7 +15,7 @@ import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
 import { Footer } from "./components/Footer";
 import SystemRequirements from "./components/Requirements";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Download } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -145,24 +145,7 @@ export function App() {
                   type='button'
                   className="dark:backdrop-blur-sm select-none hover:cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3"
                 >
-                  {os === "Windows" ? (
-                    <>
-                      <WindowsLogo className='h-6 w-6' />
-                      Download for Windows
-                    </>
-                  ) : os === "MacOS" ? (
-                    <>
-                      <AppleLogo className='h-6 w-6' />
-                      Download for MacOS{" "}
-                      <span className='text-muted-foreground'>(ARM64)</span>
-                    </>
-                  ) : (
-                    <>
-                      <LinuxLogo className='h-6 w-6' />
-                      Download for Linux{" "}
-                      <span className='text-muted-foreground'>(AppImage)</span>
-                    </>
-                  )}
+                  <Download className='mr-2 h-5 w-5' /> Download options
                   <ChevronDown className='ml-2 h-4 w-4' />
                 </button>
               </DropdownMenuTrigger>
