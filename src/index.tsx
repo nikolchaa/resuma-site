@@ -22,6 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./components/ui/dropdown-menu";
+import { Bento } from "./components/Bento";
 
 declare global {
   interface Window {
@@ -227,6 +228,7 @@ export function App() {
               Resuma is a privacy-first resume builder powered by local AI.
             </p>
           </ScrollReveal>
+          <Bento />
         </section>
 
         <section
@@ -245,23 +247,6 @@ export function App() {
             </p>
           </ScrollReveal>
           <SystemRequirements />
-        </section>
-
-        <section
-          className={
-            "flex flex-col items-center justify-center pt-10 pb-20 max-w-4xl mx-auto"
-          }
-        >
-          <ScrollRevealText
-            text='Export to PDF with a single click.'
-            highlight='single'
-          />
-          <ScrollReveal>
-            <p className='text-muted-foreground text-center max-w-xl mx-auto'>
-              Once you’re done, generate a perfectly formatted PDF in seconds.
-              No subscriptions, watermarks, or limitations.
-            </p>
-          </ScrollReveal>
         </section>
       </main>
 
