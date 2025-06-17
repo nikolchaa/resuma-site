@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Wand2, Paintbrush, ShieldCheck, Cpu } from "lucide-react";
+import { Wand2 } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 import { useEffect, useState } from "preact/hooks";
 
@@ -32,7 +32,7 @@ export function Bento() {
     <div className='grid max-w-6xl sm:grid-cols-4 gap-6 py-12'>
       <VerticalCard />
       <HorizontalCard isDark={isDark} />
-      <SmallCard1 />
+      <SmallCard1 isDark={isDark} />
       <SmallCard4 isDark={isDark} />
       <BigCard />
       <SmallCard3 />
@@ -45,10 +45,10 @@ function VerticalCard() {
   return (
     <ScrollReveal className='col-span-2 sm:row-span-2 sm:col-span-1'>
       <Card className={"w-full h-full py-0 gap-0"}>
-        <h3 className='text-lg font-semibold text-foreground'>Resume Wizard</h3>
+        {/* <h3 className='text-lg font-semibold text-foreground'>Resume Wizard</h3>
         <p className='text-sm text-muted-foreground'>
           Trim & enhance your resume with AI.
-        </p>
+        </p> */}
       </Card>
     </ScrollReveal>
   );
@@ -57,17 +57,19 @@ function VerticalCard() {
 function HorizontalCard({ isDark }: { isDark: boolean }) {
   return (
     <ScrollReveal className='col-span-2 aspect-[436/206]'>
-      <Card className='w-full h-full py-0 gap-0 overflow-visible relative group'>
-        <div className='absolute w-[50%] h-[120%] overflow-hidden bottom-0 right-0 rounded-br-xl'>
+      <Card className='w-full h-full py-0 gap-0 overflow-y-visible relative group'>
+        <div className='absolute w-[50%] h-[150%] overflow-hidden bottom-0 right-0 rounded-br-xl'>
           <img
             src={isDark ? ResumaLight : ResumaDark}
             alt='Resuma Light'
-            className='border w-full rotate-12 skew-12 absolute bottom-10 left-10 transition-all duration-300 group-hover:bottom-14'
+            className='border w-full rotate-12 skew-12 absolute left-10 transition-all duration-300 bottom-10 group-hover:bottom-12 sm:group-hover:bottom-14'
+            style={{ clipPath: "inset(0 0 20% 0)" }} // Fix for the wear pixel leakage
           />
+
           <img
             src={isDark ? ResumaDark : ResumaLight}
             alt='Resuma Dark'
-            className='border w-full rotate-12 skew-12 absolute bottom-0 left-1 transition-all duration-300 group-hover:bottom-2'
+            className='border w-full rotate-12 skew-12 absolute left-1 transition-all duration-300 bottom-0 group-hover:bottom-1 sm:group-hover:bottom-2'
           />
         </div>
         <div className='absolute inset-6 w-[40%] flex flex-col justify-center text-muted-foreground'>
@@ -85,15 +87,18 @@ function HorizontalCard({ isDark }: { isDark: boolean }) {
   );
 }
 
-function SmallCard1() {
+function SmallCard1({ isDark }: { isDark: boolean }) {
   return (
     <ScrollReveal className='sm:aspect-square'>
       <Card className={"w-full h-full py-0 gap-0"}>
-        <ShieldCheck className='w-6 h-6 text-primary' />
-        <h3 className='text-lg font-semibold text-foreground'>ATS Optimized</h3>
-        <p className='text-sm text-muted-foreground'>
-          Beat resume scanners with smart formatting.
-        </p>
+        <video
+          className='w-full object-cover rounded-xl'
+          autoPlay
+          loop
+          muted
+          playsInline
+          src={isDark ? NewDark : NewLight}
+        />
       </Card>
     </ScrollReveal>
   );
@@ -103,11 +108,11 @@ function SmallCard2() {
   return (
     <ScrollReveal className='sm:aspect-square'>
       <Card className={"w-full h-full py-0 gap-0"}>
-        <Paintbrush className='w-6 h-6 text-primary' />
+        {/* <Paintbrush className='w-6 h-6 text-primary' />
         <h3 className='text-lg font-semibold text-foreground'>Custom Themes</h3>
         <p className='text-sm text-muted-foreground'>
           Professional, Modern, and Compact layouts.
-        </p>
+        </p> */}
       </Card>
     </ScrollReveal>
   );
@@ -117,13 +122,13 @@ function SmallCard3() {
   return (
     <ScrollReveal className='sm:aspect-square'>
       <Card className={"w-full h-full py-0 gap-0"}>
-        <Cpu className='w-6 h-6 text-primary' />
+        {/* <Cpu className='w-6 h-6 text-primary' />
         <h3 className='text-lg font-semibold text-foreground'>
           Built with Rust + Tauri
         </h3>
         <p className='text-sm text-muted-foreground'>
           Fast, secure native app experience.
-        </p>
+        </p> */}
       </Card>
     </ScrollReveal>
   );
@@ -150,13 +155,13 @@ function BigCard() {
   return (
     <ScrollReveal className='col-span-2 row-span-2'>
       <Card className='w-full h-full py-0 gap-0 aspect-square'>
-        <Cpu className='w-6 h-6 text-primary' />
+        {/* <Cpu className='w-6 h-6 text-primary' />
         <h3 className='text-lg font-semibold text-foreground'>
           Built with Rust + Tauri
         </h3>
         <p className='text-sm text-muted-foreground'>
           Fast, secure native app experience.
-        </p>
+        </p> */}
       </Card>
     </ScrollReveal>
   );
