@@ -3,10 +3,10 @@ import { ScrollReveal } from "./ScrollReveal";
 
 export function Footer() {
   return (
-    <footer className='w-full border-t bg-background text-muted-foreground text-sm mt-16 flex justify-center'>
+    <footer className='w-full border-t bg-background text-muted-foreground text-sm flex justify-center'>
       <ScrollReveal className='flex flex-col items-center gap-4 my-16'>
         <Logo className='h-12 w-auto text-foreground' />
-        <nav className='flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground'>
+        <nav className='flex flex-wrap items-center justify-center gap-4 px-4 text-sm text-muted-foreground'>
           <a
             href='https://github.com/nikolchaa/resuma/blob/main/TRADEMARK.md'
             target='_blank'
