@@ -116,7 +116,7 @@ export function HorizontalCard2() {
       <Card className='w-full h-full relative overflow-hidden p-0'>
         <div ref={containerRef} className='relative w-full h-full select-none'>
           {/* After AI */}
-          <div className='absolute inset-0 p-6 text-left text-sm leading-relaxed text-foreground bg-background'>
+          <div className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-foreground bg-background min-[27.875em]:max-[40em]:text-base'>
             <p>
               As an ex-employee, I led key projects, managed client workflows,
               and coordinated cross-functional teams, achieving notable results
@@ -126,7 +126,7 @@ export function HorizontalCard2() {
 
           {/* Before AI */}
           <div
-            className='absolute inset-0 p-6 text-left text-sm leading-relaxed text-muted-foreground bg-background'
+            className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-muted-foreground bg-background'
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           >
             <p>Worked on various client projects...</p>
@@ -149,13 +149,13 @@ export function HorizontalCard2() {
 
         {/* Caption */}
         <div
-          className={`absolute bottom-0 left-0 w-full text-foreground z-10 bg-gradient-to-t from-background to-transparent px-6 py-6 pointer-events-none`}
+          className={`absolute bottom-0 left-0 w-full text-foreground z-10 bg-gradient-to-t from-background to-transparent p-6 pointer-events-none min-[40em]:max-[43.9375em]:hidden max-[22.25em]:hidden min-[43.9375em]:max-[51.75em]:p-3 max-[26.125em]:p-3`}
         >
           <span className='text-xl font-semibold flex items-center gap-2 mb-1'>
             <Sparkles className='w-6 h-6 text-primary inline' />
             AI Enhancement
           </span>
-          <p className='text-sm text-muted-foreground'>
+          <p className='text-sm text-muted-foreground max-[26.125em]:hidden min-[43.9375em]:max-[51.75em]:hidden'>
             Slide to reveal how AI improves your tone and impact.
           </p>
         </div>
