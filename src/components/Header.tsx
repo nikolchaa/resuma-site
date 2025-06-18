@@ -101,9 +101,12 @@ export function Header() {
                 <ChevronDown className='ml-2 h-4 w-4' />
               </button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent
               align='center'
-              className='w-56 mt-2 rounded-md border bg-background shadow-xs p-1'
+              className={
+                "w-56 mt-2 rounded-md border bg-background shadow-xs p-1 select-none gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:border-input dark:hover:bg-input/50 dark:backdrop-blur-sm"
+              }
             >
               <DropdownMenuItem
                 onClick={() => console.log("Download for Windows")}
