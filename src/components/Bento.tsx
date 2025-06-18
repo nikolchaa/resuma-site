@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Cpu, Hammer, Sparkles, Star, Wand2 } from "lucide-react";
+import { Coffee, Cpu, Hammer, Sparkles, Star, Wand2 } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Button } from "./ui/button";
@@ -222,7 +222,22 @@ function SmallCard2({ isDark }: { isDark: boolean }) {
 function SmallCard3() {
   return (
     <ScrollReveal className='aspect-square order-6 sm:order-6'>
-      <Card className='w-full h-full relative overflow-hidden'></Card>
+      <Card className='w-full h-full relative flex flex-col items-center justify-evenly gap-0 py-0 px-6 text-center overflow-hidden'>
+        <p className='text-[min(3.2vw,0.8rem)] md:text-base leading-tight text-foreground'>
+          Like the project? Help keep it growing.
+        </p>
+        <Button asChild size='sm' className='text-[min(3.2vw,0.8rem)]'>
+          <a
+            href='https://buymeacoffee.com/nikolchaa'
+            target='_blank'
+            rel='noopener noreferrer'
+            className={"min-sm:max-[700px]:text-xs"}
+          >
+            <Coffee className='w-4 h-4' />
+            Buy me a coffee
+          </a>
+        </Button>
+      </Card>
     </ScrollReveal>
   );
 }
