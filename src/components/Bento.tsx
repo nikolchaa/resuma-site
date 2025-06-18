@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Sparkles, Star, Wand2 } from "lucide-react";
+import { Cpu, Sparkles, Star, Wand2 } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Button } from "./ui/button";
@@ -11,6 +11,7 @@ import ResumaDark from "@/assets/ResumaDark.webp";
 import ResumaLight from "@/assets/ResumaLight.webp";
 
 import GitHub from "@/assets/github.svg?react";
+import Waves from "@/assets/Waves.svg?react";
 
 export function Bento() {
   const [isDark, setIsDark] = useState(() =>
@@ -116,7 +117,7 @@ export function HorizontalCard2() {
       <Card className='w-full h-full relative overflow-hidden p-0'>
         <div ref={containerRef} className='relative w-full h-full select-none'>
           {/* After AI */}
-          <div className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-foreground bg-background min-[27.875em]:max-[40em]:text-base'>
+          <div className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-foreground bg-background min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'>
             <p>
               As an ex-employee, I led key projects, managed client workflows,
               and coordinated cross-functional teams, achieving notable results
@@ -126,7 +127,7 @@ export function HorizontalCard2() {
 
           {/* Before AI */}
           <div
-            className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-muted-foreground bg-background'
+            className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-muted-foreground bg-background min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           >
             <p>Worked on various client projects...</p>
@@ -249,7 +250,61 @@ function SmallCard4() {
 export function BigCard() {
   return (
     <ScrollReveal className='col-span-2 row-span-2 order-5 sm:order-5'>
-      <Card className='w-full h-full aspect-square p-0'></Card>
+      <Card className='w-full h-full aspect-square p-4 pb-0 flex flex-col items-start bg-background text-foreground gap-3 relative overflow-hidden'>
+        {/* Badge */}
+        <div className='flex items-center gap-2 text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full z-10'>
+          <Sparkles className='w-3.5 h-3.5' />
+          Local AI Core
+        </div>
+
+        {/* Title */}
+        <div className='text-2xl font-bold flex items-center gap-2 z-10 min-sm:max-[42.125rem]:text-lg max-[21.3125rem]:text-lg'>
+          <Cpu className='w-6 h-6 text-muted-foreground' />
+          Powered by llama.cpp
+        </div>
+
+        {/* Description */}
+        <div className='text-muted-foreground text-sm leading-snug z-10 min-sm:max-[42.125rem]:text-xs min-[21.3125rem]:max-sm:text-base max-[21.3125rem]:text-base'>
+          Resuma uses{" "}
+          <span className='font-semibold text-foreground'>llama.cpp</span> under
+          the hood to run
+          <span className='font-semibold text-foreground'>
+            {" "}
+            Qwen3 models (0.6B–32B)
+          </span>{" "}
+          locally on your machine. It's fully offline, open-source, and
+          optimized for performance via native Rust + CLI integration.
+        </div>
+
+        {/* Watermark + Waves */}
+        <div className='absolute bottom-0 left-0 w-full'>
+          {/* Huge AI Watermark */}
+          <span
+            className='text-foreground/10 font-bold absolute left-1/2 -translate-x-1/2
+              bottom-0
+              text-[clamp(4rem,22vw,15rem)]
+              leading-[clamp(4rem,22vw,15rem)]
+              min-[58rem]:text-[15rem]
+              min-[58rem]:leading-[15rem]
+              min-[58rem]:bottom-[2rem]
+              max-[23.4375rem]:hidden
+              max-sm:text-[clamp(4rem,50vw,20rem)]
+              max-sm:leading-[clamp(4rem,50vw,20rem)]
+              max-sm:bottom-[clamp(1rem,5vw,5rem)]
+              pointer-events-none select-none whitespace-nowrap'
+          >
+            AI
+          </span>
+
+          {/* Responsive SVG Waves */}
+          <Waves
+            className='w-full h-auto absolute left-0 
+              -bottom-[2rem] 
+              sm:max-[58rem]:-bottom-[2.5rem] 
+              sm:-bottom-[1rem]'
+          />
+        </div>
+      </Card>
     </ScrollReveal>
   );
 }
