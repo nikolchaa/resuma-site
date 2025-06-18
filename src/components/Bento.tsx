@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Cpu, Sparkles, Star, Wand2 } from "lucide-react";
+import { Cpu, Hammer, Sparkles, Star, Wand2 } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Button } from "./ui/button";
@@ -12,6 +12,10 @@ import ResumaLight from "@/assets/ResumaLight.webp";
 
 import GitHub from "@/assets/github.svg?react";
 import Waves from "@/assets/Waves.svg?react";
+import TauriIcon from "@/assets/tauri.svg?react";
+import RustIcon from "@/assets/rust.svg?react";
+import ReactIcon from "@/assets/react.svg?react";
+import Marquee from "react-fast-marquee";
 
 export function Bento() {
   const [isDark, setIsDark] = useState(() =>
@@ -34,7 +38,7 @@ export function Bento() {
 
   return (
     <div className='grid grid-cols-2 sm:grid-cols-4 gap-6 py-12 max-w-6xl'>
-      <SmallCard1 />
+      <SmallCard1 isDark={isDark} />
       <HorizontalCard1 isDark={isDark} />
       <SmallCard2 isDark={isDark} />
       <HorizontalCard2 />
@@ -117,7 +121,7 @@ export function HorizontalCard2() {
       <Card className='w-full h-full relative overflow-hidden p-0'>
         <div ref={containerRef} className='relative w-full h-full select-none'>
           {/* After AI */}
-          <div className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-foreground bg-background min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'>
+          <div className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-foreground bg-card min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'>
             <p>
               As an ex-employee, I led key projects, managed client workflows,
               and coordinated cross-functional teams, achieving notable results
@@ -127,7 +131,7 @@ export function HorizontalCard2() {
 
           {/* Before AI */}
           <div
-            className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-muted-foreground bg-background min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'
+            className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-muted-foreground bg-card min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           >
             <p>Worked on various client projects...</p>
@@ -150,7 +154,7 @@ export function HorizontalCard2() {
 
         {/* Caption */}
         <div
-          className={`absolute bottom-0 left-0 w-full text-foreground z-10 bg-gradient-to-t from-background to-transparent p-6 pointer-events-none min-[40em]:max-[43.9375em]:hidden max-[22.25em]:hidden min-[43.9375em]:max-[51.75em]:p-3 max-[26.125em]:p-3`}
+          className={`absolute bottom-0 left-0 w-full text-foreground z-10 bg-gradient-to-t from-card to-transparent p-6 pointer-events-none min-[40em]:max-[43.9375em]:hidden max-[22.25em]:hidden min-[43.9375em]:max-[51.75em]:p-3 max-[26.125em]:p-3`}
         >
           <span className='text-xl font-semibold flex items-center gap-2 mb-1'>
             <Sparkles className='w-6 h-6 text-primary inline' />
@@ -165,10 +169,35 @@ export function HorizontalCard2() {
   );
 }
 
-function SmallCard1() {
+export default function SmallCard1({ isDark }: { isDark: boolean }) {
+  const icons = [TauriIcon, RustIcon, ReactIcon];
+
   return (
     <ScrollReveal className='aspect-square order-2 sm:order-1'>
-      <Card className={"w-full h-full py-0 gap-0"}></Card>
+      <Card className='w-full h-full flex flex-col items-center justify-center gap-6 text-muted-foreground overflow-hidden p-0 max-[370px]:gap-3 min-sm:max-[768px]:gap-3'>
+        <h3 className='text-xl font-semibold text-foreground text-center flex items-center gap-2 min-sm:max-[768px]:text-lg max-[370px]:text-lg'>
+          <Hammer
+            className={
+              "w-6 h-6 inline text-primary min-sm:max-[768px]:w-4 max-[370px]:w-4 min-sm:max-[768px]:h-4 max-[370px]:h-4"
+            }
+          />
+          Built With
+        </h3>
+        <Marquee
+          gradient={true}
+          gradientColor={isDark ? "#040404" : "#fff"}
+          gradientWidth={20}
+          speed={40}
+          pauseOnHover={true}
+          className='w-full h-15'
+        >
+          {icons.map((Icon, i) => (
+            <div key={i} className='mx-3 flex items-center'>
+              <Icon className='h-15 w-15 fill-foreground' />
+            </div>
+          ))}
+        </Marquee>
+      </Card>
     </ScrollReveal>
   );
 }
