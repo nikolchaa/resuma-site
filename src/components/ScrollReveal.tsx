@@ -15,7 +15,7 @@ export function ScrollRevealText({
   const words = text.split(" ");
 
   return (
-    <h2 ref={ref} className='text-center px-8'>
+    <h2 ref={ref} className='text-center'>
       {words.map((word, i) => {
         const isLast = i === words.length - 1;
 
