@@ -48,13 +48,13 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
   return (
     <ScrollReveal className='col-span-2 aspect-[436/206] order-1 sm:order-2'>
       <Card className='w-full h-full py-0 gap-0 overflow-y-visible relative group'>
-        <div className='absolute w-[50%] h-[150%] overflow-hidden bottom-0 right-0 rounded-br-xl'>
+        <div className='absolute w-[50%] h-[125%] overflow-hidden bottom-0 right-0 rounded-br-xl'>
           <img
             onDragStart={(e) => e.preventDefault()}
             src={isDark ? ResumaLight : ResumaDark}
             alt='Resuma Light'
             className='border w-full rotate-12 skew-12 absolute left-10 transition-all duration-300 bottom-10 group-hover:bottom-12 sm:group-hover:bottom-14 rounded-[2px]'
-            style={{ clipPath: "inset(0 0 20% 0)" }} // Fix for the wear pixel leakage
+            style={{ clipPath: "inset(0 0 20% 0)" }} // Fix for the pixel leakage
           />
 
           <img
@@ -116,7 +116,7 @@ export function HorizontalCard2() {
       <Card className='w-full h-full relative overflow-hidden p-0'>
         <div ref={containerRef} className='relative w-full h-full select-none'>
           {/* After AI */}
-          <div className='absolute inset-0 p-6 text-left text-sm sm:text-base leading-relaxed text-foreground bg-background'>
+          <div className='absolute inset-0 p-6 text-left text-sm leading-relaxed text-foreground bg-background'>
             <p>
               As an ex-employee, I led key projects, managed client workflows,
               and coordinated cross-functional teams, achieving notable results
@@ -126,7 +126,7 @@ export function HorizontalCard2() {
 
           {/* Before AI */}
           <div
-            className='absolute inset-0 p-6 text-left text-sm sm:text-base leading-relaxed text-muted-foreground bg-background'
+            className='absolute inset-0 p-6 text-left text-sm leading-relaxed text-muted-foreground bg-background'
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           >
             <p>Worked on various client projects...</p>
