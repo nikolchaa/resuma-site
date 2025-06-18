@@ -44,7 +44,7 @@ export function App() {
     <>
       <Header />
 
-      <main className='flex flex-col items-center justify-center gap-24 px-4 py-14'>
+      <main className='flex flex-col items-center justify-center gap-24 px-4 py-24'>
         <section
           className={
             "flex flex-col items-center justify-center max-w-4xl mx-auto"
