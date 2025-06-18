@@ -58,7 +58,7 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
             onDragStart={(e) => e.preventDefault()}
             src={isDark ? ResumaLight : ResumaDark}
             alt='Resuma Light'
-            className='border w-full rotate-12 skew-12 absolute left-10 transition-all duration-300 bottom-10 group-hover:bottom-12 sm:group-hover:bottom-14 rounded-[2px]'
+            className='border w-full rotate-12 skew-12 absolute left-[2.5rem] transition-all duration-300 bottom-[2.5rem] group-hover:bottom-[3rem] sm:group-hover:bottom-[3.5rem] rounded-[0.125rem]'
             style={{ clipPath: "inset(0 0 20% 0)" }} // Fix for the pixel leakage
           />
 
@@ -66,10 +66,10 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
             onDragStart={(e) => e.preventDefault()}
             src={isDark ? ResumaDark : ResumaLight}
             alt='Resuma Dark'
-            className='border w-full rotate-12 skew-12 absolute left-1 transition-all duration-300 bottom-0 group-hover:bottom-1 sm:group-hover:bottom-2 rounded-[2px]'
+            className='border w-full rotate-12 skew-12 absolute left-[0.0625rem] transition-all duration-300 bottom-0 group-hover:bottom-[0.0625rem] sm:group-hover:bottom-[0.125rem] rounded-[0.125rem]'
           />
         </div>
-        <div className='absolute inset-6 w-[40%] flex flex-col justify-center text-muted-foreground'>
+        <div className='absolute inset-[1.5rem] w-[40%] flex flex-col justify-center text-muted-foreground'>
           <span
             className={
               "text-xl font-semibold flex items-center gap-2 text-foreground"
@@ -174,11 +174,11 @@ export default function SmallCard1({ isDark }: { isDark: boolean }) {
 
   return (
     <ScrollReveal className='aspect-square order-2 sm:order-1'>
-      <Card className='w-full h-full flex flex-col items-center justify-center gap-6 text-muted-foreground overflow-hidden p-0 max-[370px]:gap-3 min-sm:max-[768px]:gap-3'>
-        <h3 className='text-xl font-semibold text-foreground text-center flex items-center gap-2 min-sm:max-[768px]:text-lg max-[370px]:text-lg'>
+      <Card className='w-full h-full flex flex-col items-center justify-center gap-6 text-muted-foreground overflow-hidden p-0 max-[23.125rem]:gap-3 min-sm:max-[48rem]:gap-3'>
+        <h3 className='text-xl font-semibold text-foreground text-center flex items-center gap-2 min-sm:max-[48rem]:text-lg max-[23.125rem]:text-lg'>
           <Hammer
             className={
-              "w-6 h-6 inline text-primary min-sm:max-[768px]:w-4 max-[370px]:w-4 min-sm:max-[768px]:h-4 max-[370px]:h-4"
+              "w-6 h-6 inline text-primary min-sm:max-[48rem]:w-4 max-[23.125rem]:w-4 min-sm:max-[48rem]:h-4 max-[23.125rem]:h-4"
             }
           />
           Built With
@@ -231,7 +231,7 @@ function SmallCard3() {
             href='https://buymeacoffee.com/nikolchaa'
             target='_blank'
             rel='noopener noreferrer'
-            className={"min-sm:max-[700px]:text-xs"}
+            className={"min-sm:max-[43.75rem]:text-xs"}
           >
             <Coffee className='w-4 h-4' />
             Buy me a coffee
@@ -261,7 +261,7 @@ function SmallCard4() {
       <Card className='w-full h-full relative overflow-hidden'>
         <div className='absolute inset-0 flex flex-col items-center justify-center gap-[10%] px-[5%] text-center text-[min(4vw,0.95rem)]'>
           {/* GitHub Icon */}
-          <GitHub className='w-[18%] max-w-[40px] h-auto' />
+          <GitHub className='w-[18%] max-w-[2.5rem] h-auto' />
 
           {/* Text label */}
           <div className='text-muted-foreground leading-snug text-[min(3.2vw,0.8rem)] md:text-base'>

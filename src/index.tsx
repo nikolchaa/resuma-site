@@ -213,10 +213,10 @@ export function App() {
         </ScrollReveal>
       </header>
 
-      <main className='flex flex-col items-center justify-center gap-4 p-4'>
+      <main className='flex flex-col items-center justify-center gap-24 px-4 pt-14'>
         <section
           className={
-            "flex flex-col items-center justify-center pt-20 pb-10 max-w-4xl mx-auto"
+            "flex flex-col items-center justify-center max-w-4xl mx-auto"
           }
         >
           <ScrollRevealText
@@ -233,7 +233,7 @@ export function App() {
 
         <section
           className={
-            "flex flex-col items-center justify-center py-10 max-w-4xl mx-auto"
+            "flex flex-col items-center justify-center max-w-4xl mx-auto"
           }
           id={"requirements"}
         >
