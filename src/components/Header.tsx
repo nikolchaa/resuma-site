@@ -47,7 +47,7 @@ export function Header() {
     fetch("/.netlify/functions/latest-release")
       .then((res) => res.json())
       .then((data) => {
-        setVersion(data.version || "Unknown");
+        setVersion(data.version || "Unknown Version");
       })
       .catch(() => setVersion("Unavailable"));
   }, []);

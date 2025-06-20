@@ -4,7 +4,7 @@ export async function handler() {
     console.log("Token present:", !!token);
 
     const response = await fetch(
-      "https://api.github.com/repos/nikolchaa/tauri-plugin-hwinfo",
+      "https://api.github.com/repos/nikolchaa/resuma",
       {
         headers: {
           "User-Agent": "resuma-site",
