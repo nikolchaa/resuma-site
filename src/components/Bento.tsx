@@ -18,9 +18,12 @@ import ReactIcon from "@/assets/react.svg?react";
 import Marquee from "react-fast-marquee";
 
 export function Bento() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains("dark")
-  );
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return document.documentElement.classList.contains("dark");
+    }
+    return false;
+  });
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
