@@ -10,7 +10,7 @@ import NewDark from "@/assets/New Resume - Dark.mp4";
 import ResumaDark from "@/assets/ResumaDark.webp";
 import ResumaLight from "@/assets/ResumaLight.webp";
 
-import GitHub from "@/assets/github.svg?react";
+import GitHub from "@/assets/GitHub.svg?react";
 import Waves from "@/assets/Waves.svg?react";
 import TauriIcon from "@/assets/tauri.svg?react";
 import RustIcon from "@/assets/rust.svg?react";
