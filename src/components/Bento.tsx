@@ -246,12 +246,10 @@ function SmallCard4() {
   const [stars, setStars] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("https://api.github.com/repos/nikolchaa/tauri-plugin-hwinfo")
+    fetch("/.netlify/functions/stars")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.stargazers_count) {
-          setStars(data.stargazers_count);
-        }
+        if (data?.stars) setStars(data.stars);
       })
       .catch((err) => console.error("Failed to fetch stars:", err));
   }, []);

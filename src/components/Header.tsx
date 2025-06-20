@@ -44,12 +44,10 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    fetch(
-      "https://api.github.com/repos/nikolchaa/tauri-plugin-hwinfo/releases/latest"
-    )
+    fetch("/.netlify/functions/latest-release")
       .then((res) => res.json())
       .then((data) => {
-        setVersion(data.tag_name || "Unknown");
+        setVersion(data.version || "Unknown");
       })
       .catch(() => setVersion("Unavailable"));
   }, []);
