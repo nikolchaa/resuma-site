@@ -16,28 +16,11 @@ import TauriIcon from "@/assets/tauri.svg?react";
 import RustIcon from "@/assets/rust.svg?react";
 import ReactIcon from "@/assets/react.svg?react";
 import Marquee from "react-fast-marquee";
+import { useTheme } from "@/context/themeProvider";
 
 export function Bento() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return document.documentElement.classList.contains("dark");
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const dark = document.documentElement.classList.contains("dark");
-      setIsDark(dark);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
     <div className='grid grid-cols-2 sm:grid-cols-4 gap-6 py-12 max-w-6xl'>

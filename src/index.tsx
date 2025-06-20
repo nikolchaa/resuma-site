@@ -2,8 +2,6 @@ import { hydrate, prerender as ssr } from "preact-iso";
 
 import "./style.css";
 
-import { setInitialTheme } from "./lib/setInitialTheme";
-
 import { useEffect } from "preact/hooks";
 import Lenis from "lenis";
 import { ScrollReveal, ScrollRevealText } from "./components/ScrollReveal";
@@ -17,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./components/ui/accordion";
+import { ThemeProvider } from "./context/themeProvider";
 
 declare global {
   interface Window {
@@ -47,7 +46,7 @@ export function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
       <Header />
 
       <main className='flex flex-col items-center justify-center gap-24 px-4 py-24'>
@@ -191,12 +190,11 @@ export function App() {
       </main>
 
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
 
 if (typeof window !== "undefined") {
-  setInitialTheme();
   hydrate(<App />, document.getElementById("app"));
 }
 

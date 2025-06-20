@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/themeProvider";
 import { useEffect, useRef, useState } from "preact/hooks";
 import * as THREE from "three";
 import FOG from "vanta/dist/vanta.fog.min";
@@ -5,26 +6,8 @@ import FOG from "vanta/dist/vanta.fog.min";
 export const VantaBackground = () => {
   const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return document.documentElement.classList.contains("dark");
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const dark = document.documentElement.classList.contains("dark");
-      setIsDark(dark);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
     if (!vantaRef.current) return;
