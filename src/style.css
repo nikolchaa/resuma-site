@@ -266,3 +266,9 @@
   background-color: var(--primary);
   color: var(--background);
 }
+
+@media only screen and (min-width: 3441px) {
+  html {
+    font-size: calc(100vw / 3440 * 20);
+  }
+}
