@@ -72,22 +72,50 @@ export function Header() {
         className='absolute bottom-16 flex flex-col gap-4 items-center justify-center w-full text-center'
       >
         <div className='gap-4 hidden md:flex'>
-          <Button variant={os === "Windows" ? "secondary" : "outline"}>
-            <WindowsLogo className='h-6 w-6' />
-            Download for Windows
-          </Button>
-          <Button variant={os === "MacOS" ? "secondary" : "outline"}>
-            <AppleLogo className='h-6 w-6' />
-            Download for MacOS{" "}
-            <span className='text-muted-foreground'>(ARM64)</span>
-          </Button>
-          <Button variant={os === "Linux" ? "secondary" : "outline"}>
-            <LinuxLogo className='h-6 w-6' />
-            Download for Linux{" "}
-            <span className='text-muted-foreground'>(AppImage)</span>
-          </Button>
-        </div>
+          <a
+            href={`https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
+              "v",
+              ""
+            )}_x64-setup.exe`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <Button variant={os === "Windows" ? "secondary" : "outline"}>
+              <WindowsLogo className='h-6 w-6' />
+              Download for Windows
+            </Button>
+          </a>
 
+          <a
+            href={`https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
+              "v",
+              ""
+            )}_aarch64.dmg`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <Button variant={os === "MacOS" ? "secondary" : "outline"}>
+              <AppleLogo className='h-6 w-6' />
+              Download for MacOS{" "}
+              <span className='text-muted-foreground'>(ARM64)</span>
+            </Button>
+          </a>
+
+          <a
+            href={`https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
+              "v",
+              ""
+            )}_amd64.AppImage`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <Button variant={os === "Linux" ? "secondary" : "outline"}>
+              <LinuxLogo className='h-6 w-6' />
+              Download for Linux{" "}
+              <span className='text-muted-foreground'>(AppImage)</span>
+            </Button>
+          </a>
+        </div>
         <div className='flex gap-4 md:hidden'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -133,7 +161,6 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-
         <nav className='text-muted-foreground'>
           {`${version}`}
           <span className='mx-4'>|</span>
