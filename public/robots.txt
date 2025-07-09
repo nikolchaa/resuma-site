@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://resuma.download/sitemap.xml
