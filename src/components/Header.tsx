@@ -102,10 +102,7 @@ export function Header() {
           </a>
 
           <a
-            href={`https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
-              "v",
-              ""
-            )}_amd64.AppImage`}
+            href={`https://github.com/nikolchaa/resuma/releases/latest`}
             target='_blank'
             rel='noopener noreferrer'
           >
