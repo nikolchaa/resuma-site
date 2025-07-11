@@ -108,8 +108,7 @@ export function Header() {
           >
             <Button variant={os === "Linux" ? "secondary" : "outline"}>
               <LinuxLogo className='h-6 w-6' />
-              Download for Linux{" "}
-              <span className='text-muted-foreground'>(AppImage)</span>
+              Download for Linux
             </Button>
           </a>
         </div>
@@ -132,13 +131,32 @@ export function Header() {
               }
             >
               <DropdownMenuItem
-                onClick={() => console.log("Download for Windows")}
+                onClick={() =>
+                  window.open(
+                    `https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
+                      "v",
+                      ""
+                    )}_x64-setup.exe`,
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
               >
                 <WindowsLogo className='mr-2 h-5 w-5' />
                 Windows
               </DropdownMenuItem>
+
               <DropdownMenuItem
-                onClick={() => console.log("Download for MacOS")}
+                onClick={() =>
+                  window.open(
+                    `https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
+                      "v",
+                      ""
+                    )}_aarch64.dmg`,
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
               >
                 <AppleLogo className='mr-2 h-5 w-5' />
                 MacOS{" "}
@@ -146,14 +164,18 @@ export function Header() {
                   (ARM64)
                 </span>
               </DropdownMenuItem>
+
               <DropdownMenuItem
-                onClick={() => console.log("Download for Linux")}
+                onClick={() =>
+                  window.open(
+                    "https://github.com/nikolchaa/resuma/releases/latest",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
               >
                 <LinuxLogo className='mr-2 h-5 w-5' />
-                Linux{" "}
-                <span className='ml-auto text-xs text-muted-foreground'>
-                  (AppImage)
-                </span>
+                Linux
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
