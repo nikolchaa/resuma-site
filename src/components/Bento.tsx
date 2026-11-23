@@ -230,14 +230,22 @@ function SmallCard3() {
 
 function SmallCard4() {
   const [stars, setStars] = useState<number | null>(null);
+  const [starsFailed, setStarsFailed] = useState(false);
 
   useEffect(() => {
     fetch("/.netlify/functions/stars")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.stars) setStars(data.stars);
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
       })
-      .catch((err) => console.error("Failed to fetch stars:", err));
+      .then((data) => {
+        if (typeof data?.stars !== "number") throw new Error("No star count");
+        setStars(data.stars);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch stars:", err);
+        setStarsFailed(true);
+      });
   }, []);
 
   return (
@@ -265,7 +273,9 @@ function SmallCard4() {
             >
               <Star className='w-4 h-4' />
               {stars !== null
-                ? `${stars.toLocaleString()} stars`
+                ? `${stars.toLocaleString()} ${stars === 1 ? "star" : "stars"}`
+                : starsFailed
+                ? "Star on GitHub"
                 : "Loading..."}
             </Button>
           </a>
@@ -282,26 +292,24 @@ export function BigCard() {
         {/* Badge */}
         <div className='flex items-center gap-2 text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full z-10'>
           <Sparkles className='w-3.5 h-3.5' />
-          Local AI Core
+          Local by default
         </div>
 
         {/* Title */}
         <div className='text-2xl font-bold flex items-center gap-2 z-10 min-sm:max-[42.125rem]:text-lg max-[21.3125rem]:text-lg'>
           <Cpu className='w-6 h-6 text-muted-foreground' />
-          Powered by llama.cpp
+          Bring your own model
         </div>
 
         {/* Description */}
         <div className='text-muted-foreground text-sm leading-snug z-10 min-sm:max-[42.125rem]:text-xs min-[21.3125rem]:max-sm:text-base max-[21.3125rem]:text-base'>
-          Resuma uses{" "}
-          <span className='font-semibold text-foreground'>llama.cpp</span> under
-          the hood to run
-          <span className='font-semibold text-foreground'>
-            {" "}
-            Qwen3 models (0.6B–32B)
-          </span>{" "}
-          locally on your machine. It's fully offline, open-source, and
-          optimized for performance via native Rust + CLI integration.
+          Resuma runs{" "}
+          <span className='font-semibold text-foreground'>llama.cpp</span>{" "}
+          locally with a{" "}
+          <span className='font-semibold text-foreground'>Qwen3</span> model
+          picked for your hardware, or any GGUF model from{" "}
+          <span className='font-semibold text-foreground'>Hugging Face</span>.
+          Or connect Ollama, LM Studio, or a cloud API with your own key.
         </div>
 
         {/* Watermark + Waves */}
