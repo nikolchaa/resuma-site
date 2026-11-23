@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { VantaBackground } from "./VantaBackground";
+import { FogBackground } from "./FogBackground";
 import { ScrollReveal } from "./ScrollReveal";
 import { Button } from "./ui/button";
 import Logo from "@/assets/Logo.svg?react";
@@ -76,7 +76,7 @@ export function Header() {
 
   return (
     <header className='relative w-full h-[calc(100vh-4rem)] sm:h-screen overflow-hidden flex flex-col items-center justify-center gap-6'>
-      <VantaBackground />
+      <FogBackground />
 
       <ScrollReveal delay={0}>
         <Logo className='max-w-132 w-[calc(100vw-2rem)] text-foreground drop-shadow-lg' />
