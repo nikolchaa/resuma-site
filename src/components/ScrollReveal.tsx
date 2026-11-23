@@ -1,5 +1,61 @@
-import { useEffect, useRef, useState } from "preact/hooks";
-import { motion as m, useInView } from "motion/react";
+import type { ComponentChildren } from "preact";
+import { useEffect, useRef } from "preact/hooks";
+import { cn } from "@/lib/utils";
+
+/*
+ * Scroll-triggered reveals, driven by CSS (see `.reveal` in style.css).
+ *
+ * Content is fully visible in the prerendered HTML. Once the page has
+ * hydrated, `html.reveal-ready` is set (see index.tsx) and only elements
+ * without `data-inview` are hidden, so anything already on screen never
+ * flickers and nothing stays hidden if JavaScript fails to load.
+ */
+
+const ROOT_MARGIN_RATIO = 0.075;
+
+let sharedObserver: IntersectionObserver | null = null;
+
+function getObserver() {
+  if (!sharedObserver) {
+    sharedObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute("data-inview", "");
+          } else {
+            entry.target.removeAttribute("data-inview");
+          }
+        }
+      },
+      { rootMargin: `-${ROOT_MARGIN_RATIO * 100}% 0px` }
+    );
+  }
+  return sharedObserver;
+}
+
+function isInViewport(element: Element) {
+  const rect = element.getBoundingClientRect();
+  const margin = window.innerHeight * ROOT_MARGIN_RATIO;
+  return rect.top < window.innerHeight - margin && rect.bottom > margin;
+}
+
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+
+    // Mark on-screen elements synchronously, before reveal-ready is applied.
+    if (isInViewport(element)) element.setAttribute("data-inview", "");
+
+    const observer = getObserver();
+    observer.observe(element);
+    return () => observer.unobserve(element);
+  }, []);
+
+  return ref;
+}
 
 export function ScrollRevealText({
   text,
@@ -8,36 +64,22 @@ export function ScrollRevealText({
   text: string;
   highlight?: string;
 }) {
-  const ref = useRef<HTMLHeadingElement>(null);
-  const isInView = useInView(ref, { margin: "-7.5% 0px" });
-  const delay = 0.05;
-
+  const ref = useReveal<HTMLHeadingElement>();
   const words = text.split(" ");
 
   return (
-    <h2 ref={ref} className='text-center'>
+    <h2 ref={ref} className='reveal-text text-center'>
       {words.map((word, i) => {
         const isLast = i === words.length - 1;
-
         const endsWithDot = word.endsWith(".");
         const cleanWord = endsWithDot ? word.slice(0, -1) : word;
         const isHighlighted = cleanWord === highlight;
 
         return (
-          <m.span
+          <span
             key={i}
-            initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-            animate={
-              isInView
-                ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                : { opacity: 0, y: 24, filter: "blur(6px)" }
-            }
-            transition={{
-              duration: 0.5,
-              delay: i * delay,
-              ease: [0.33, 1, 0.68, 1],
-            }}
-            className='inline-block whitespace-pre text-[clamp(2rem,4vw,3rem)] font-semibold z-10'
+            style={{ "--i": i }}
+            className='reveal-word whitespace-pre text-[clamp(2rem,4vw,3rem)] font-semibold z-10'
           >
             <span
               className={isHighlighted ? "text-primary" : "text-foreground"}
@@ -46,7 +88,7 @@ export function ScrollRevealText({
             </span>
             {endsWithDot && <span className='text-foreground'>.</span>}
             {!isLast && " "}
-          </m.span>
+          </span>
         );
       })}
     </h2>
@@ -55,47 +97,16 @@ export function ScrollRevealText({
 
 export function ScrollReveal({
   children,
-  className = "",
-  delay = 0,
-  y = 24,
+  className,
 }: {
-  children: preact.ComponentChildren;
+  children: ComponentChildren;
   className?: string;
-  delay?: number;
-  y?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { margin: "-7.5% 0px" });
-
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const shouldTrack = delay > 0;
-
-  useEffect(() => {
-    if (shouldTrack && isInView && !hasAnimated) {
-      const timeout = setTimeout(() => setHasAnimated(true), 100);
-      return () => clearTimeout(timeout);
-    }
-  }, [isInView, hasAnimated, shouldTrack]);
-
-  const effectiveDelay = shouldTrack && hasAnimated ? 0 : delay;
+  const ref = useReveal<HTMLDivElement>();
 
   return (
-    <m.div
-      ref={ref}
-      initial={{ opacity: 0, y, filter: "blur(6px)" }}
-      animate={
-        isInView
-          ? { opacity: 1, y: 0, filter: "blur(0px)" }
-          : { opacity: 0, y, filter: "blur(6px)" }
-      }
-      transition={{
-        duration: 0.6,
-        delay: effectiveDelay,
-        ease: [0.33, 1, 0.68, 1],
-      }}
-      className={className}
-    >
+    <div ref={ref} className={cn("reveal", className)}>
       {children}
-    </m.div>
+    </div>
   );
 }

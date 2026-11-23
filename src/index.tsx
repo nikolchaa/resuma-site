@@ -25,23 +25,37 @@ declare global {
 
 export function App() {
   useEffect(() => {
+    // Reveal animations may only hide content once every on-screen element
+    // has been marked; ScrollReveal effects run before this one, and the
+    // frame delay covers anything mounted in the same commit.
+    const revealFrame = requestAnimationFrame(() =>
+      document.documentElement.classList.add("reveal-ready")
+    );
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return () => cancelAnimationFrame(revealFrame);
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       wheelMultiplier: 1.2,
     });
 
+    let frame = 0;
     const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      frame = requestAnimationFrame(raf);
     };
-
-    requestAnimationFrame(raf);
+    frame = requestAnimationFrame(raf);
 
     window.lenis = lenis;
 
     return () => {
+      cancelAnimationFrame(revealFrame);
+      cancelAnimationFrame(frame);
       lenis.destroy();
+      window.lenis = undefined;
     };
   }, []);
 

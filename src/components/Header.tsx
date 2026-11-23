@@ -1,6 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
 import { FogBackground } from "./FogBackground";
-import { ScrollReveal } from "./ScrollReveal";
 import { Button } from "./ui/button";
 import Logo from "@/assets/Logo.svg?react";
 import AppleLogo from "@/assets/Apple.svg?react";
@@ -78,20 +77,23 @@ export function Header() {
     <header className='relative w-full h-[calc(100vh-4rem)] sm:h-screen overflow-hidden flex flex-col items-center justify-center gap-6'>
       <FogBackground />
 
-      <ScrollReveal delay={0}>
+      {/* Hero entrance is pure CSS (.hero-in) so the text paints without
+          waiting for JavaScript; it is the page's largest contentful paint. */}
+      <div className='hero-in'>
         <Logo className='max-w-132 w-[calc(100vw-2rem)] text-foreground drop-shadow-lg' />
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal delay={0.5}>
-        <p className='text-md sm:text-xl max-w-132 text-center leading-6 drop-shadow-lg mx-4'>
-          Resuma is an open-source desktop application for building beautiful
-          resumes. Fast, flexible, and privacy-oriented.
-        </p>
-      </ScrollReveal>
+      <p
+        className='hero-in text-md sm:text-xl max-w-132 text-center leading-6 drop-shadow-lg mx-4'
+        style={{ "--hero-delay": "0.1s" }}
+      >
+        Resuma is an open-source desktop application for building beautiful
+        resumes. Fast, flexible, and privacy-oriented.
+      </p>
 
-      <ScrollReveal
-        delay={1}
-        className='absolute bottom-16 flex flex-col gap-4 items-center justify-center w-full text-center'
+      <div
+        className='hero-in absolute bottom-16 flex flex-col gap-4 items-center justify-center w-full text-center'
+        style={{ "--hero-delay": "0.25s" }}
       >
         <div className='gap-4 hidden md:flex'>
           <a href={windowsUrl} target='_blank' rel='noopener noreferrer'>
@@ -197,7 +199,7 @@ export function Header() {
             GitHub
           </a>
         </nav>
-      </ScrollReveal>
+      </div>
     </header>
   );
 }
