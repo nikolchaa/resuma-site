@@ -272,3 +272,64 @@
     font-size: calc(100vw / 3440 * 20);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  /* Hero entrance: CSS-only so it starts with the first paint instead of
+     waiting for JavaScript (the hero text is the largest contentful paint). */
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+      filter: blur(6px);
+    }
+  }
+
+  .hero-in {
+    animation: hero-in 0.6s cubic-bezier(0.33, 1, 0.68, 1) both;
+    animation-delay: var(--hero-delay, 0s);
+  }
+
+  /* Scroll reveals (ScrollReveal.tsx). Visible by default; hidden only after
+     hydration marks the page reveal-ready and the element is off screen. */
+  .reveal,
+  .reveal-word {
+    transition-property: opacity, transform, filter;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  .reveal-word {
+    display: inline-block;
+    transition-duration: 0.5s;
+    transition-delay: calc(var(--i, 0) * 50ms);
+  }
+
+  .reveal-ready .reveal:not([data-inview]),
+  .reveal-ready .reveal-text:not([data-inview]) .reveal-word {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in {
+      animation: none;
+    }
+
+    .reveal,
+    .reveal-word {
+      transition: none;
+    }
+
+    .reveal-ready .reveal:not([data-inview]),
+    .reveal-ready .reveal-text:not([data-inview]) .reveal-word {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+}
