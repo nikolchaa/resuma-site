@@ -49,6 +49,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -87,6 +88,8 @@
   --popover-foreground: var(--foreground);
 
   --primary: #00d9cb;
+  /* Teal for text: #00d9cb on white is ~1.8:1, this is ~4.8:1. */
+  --primary-text: #008078;
   --primary-foreground: lch(0 0 0);
 
   --secondary: oklch(0.967 0.001 286.375);
@@ -132,6 +135,7 @@
   --popover-foreground: var(--foreground);
 
   --primary: #00d9cb;
+  --primary-text: #00d9cb;
   --primary-foreground: lch(0 0 0);
 
   --secondary: oklch(0.274 0.006 286.033);

@@ -338,7 +338,7 @@ export function BigCard() {
     <ScrollReveal className='col-span-2 row-span-2 order-5 sm:order-5'>
       <Card className='w-full h-full aspect-square p-4 pb-0 flex flex-col items-start bg-background text-foreground gap-3 relative overflow-hidden'>
         {/* Badge */}
-        <div className='flex items-center gap-2 text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full z-10'>
+        <div className='flex items-center gap-2 text-xs font-medium bg-primary/10 text-primary-text px-3 py-1 rounded-full z-10'>
           <Sparkles className='w-3.5 h-3.5' />
           Local by default
         </div>
