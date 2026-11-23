@@ -16,9 +16,19 @@ import {
 const LATEST_RELEASE_URL =
   "https://github.com/nikolchaa/resuma/releases/latest";
 
-// Larger hero buttons; outline ones stay translucent over the fog.
-const HERO_BUTTON_CLASS =
-  "h-11 rounded-lg px-5 text-[0.95rem] transition-[transform,background-color,color,box-shadow] duration-300 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 data-[variant=outline]:bg-background/60 data-[variant=outline]:backdrop-blur-sm";
+// Hero download buttons. The visitor's platform is highlighted in the
+// foreground colour (white in dark mode, black in light mode); the others are
+// translucent outlines over the fog. Hover classes are spelled out per variant
+// so tailwind-merge replaces the Button defaults, whose dark-mode hover
+// (1.5% -> 2.5% white) was too faint to see.
+const HERO_BUTTON_BASE =
+  "h-11 rounded-lg px-5 text-[0.95rem] transition-[translate,background-color,border-color,color,box-shadow] duration-300 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+
+function heroButtonClass(highlighted: boolean) {
+  return highlighted
+    ? `${HERO_BUTTON_BASE} shadow-lg shadow-black/20 hover:bg-foreground/85`
+    : `${HERO_BUTTON_BASE} bg-background/50 backdrop-blur-sm hover:bg-foreground/10 hover:border-foreground/30 hover:text-foreground dark:bg-background/40 dark:border-foreground/15 dark:hover:bg-foreground/10 dark:hover:border-foreground/35`;
+}
 
 const NAV_LINK_CLASS =
   "relative rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full focus-visible:after:w-full";
@@ -119,8 +129,8 @@ export function Header() {
           <Button
             asChild
             size='lg'
-            variant={os === "Windows" ? "default" : "outline"}
-            className={HERO_BUTTON_CLASS}
+            variant={os === "Windows" ? "secondary" : "outline"}
+            className={heroButtonClass(os === "Windows")}
           >
             <a href={windowsUrl} target='_blank' rel='noopener noreferrer'>
               <WindowsLogo className='h-6 w-6' aria-hidden='true' />
@@ -131,8 +141,8 @@ export function Header() {
           <Button
             asChild
             size='lg'
-            variant={os === "MacOS" ? "default" : "outline"}
-            className={HERO_BUTTON_CLASS}
+            variant={os === "MacOS" ? "secondary" : "outline"}
+            className={heroButtonClass(os === "MacOS")}
           >
             <a href={macUrl} target='_blank' rel='noopener noreferrer'>
               <AppleLogo className='h-6 w-6' aria-hidden='true' />
@@ -144,8 +154,8 @@ export function Header() {
           <Button
             asChild
             size='lg'
-            variant={os === "Linux" ? "default" : "outline"}
-            className={HERO_BUTTON_CLASS}
+            variant={os === "Linux" ? "secondary" : "outline"}
+            className={heroButtonClass(os === "Linux")}
           >
             <a
               href={LATEST_RELEASE_URL}
