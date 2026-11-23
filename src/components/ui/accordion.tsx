@@ -49,6 +49,10 @@ function AccordionTrigger({
 // HTML for search engines. Closed panels collapse to zero height and become
 // `invisible`, which also removes them from the accessibility tree and the
 // tab order; visibility flips only after the closing transition ends.
+//
+// The transition lives on an inner wrapper, not on Content itself: whenever
+// it opens or closes, Radix measures Content with its transition-duration
+// forced to 0s, which would apply the height change instantly.
 function AccordionContent({
   className,
   children,
@@ -58,11 +62,16 @@ function AccordionContent({
     <AccordionPrimitive.Content
       forceMount
       data-slot="accordion-content"
-      className="grid text-sm transition-[grid-template-rows,visibility] duration-200 ease-out motion-reduce:transition-none data-[state=closed]:invisible data-[state=closed]:grid-rows-[0fr] data-[state=open]:grid-rows-[1fr]"
+      className="group/content text-sm"
       {...props}
     >
-      <div className="overflow-hidden">
-        <div className={cn("pt-0 pb-4", className)}>{children}</div>
+      <div
+        data-slot="accordion-panel"
+        className="grid transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none group-data-[state=closed]/content:invisible group-data-[state=closed]/content:grid-rows-[0fr] group-data-[state=open]/content:grid-rows-[1fr]"
+      >
+        <div className="overflow-hidden">
+          <div className={cn("pt-0 pb-4", className)}>{children}</div>
+        </div>
       </div>
     </AccordionPrimitive.Content>
   )
