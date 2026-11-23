@@ -1,57 +1,66 @@
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+  "Cache-Control": "public, max-age=300",
+  "Netlify-CDN-Cache-Control":
+    "public, s-maxage=900, stale-while-revalidate=86400",
+};
+
+// Errors must never be cached, by the browser or the Netlify CDN.
+const errorHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+  "Cache-Control": "no-store",
+};
+
 export async function handler() {
   try {
     const token = process.env.GITHUB_TOKEN;
-    console.log("Token present:", !!token);
 
     const response = await fetch(
       "https://api.github.com/repos/nikolchaa/resuma",
       {
         headers: {
           "User-Agent": "resuma-site",
-          Authorization: `Bearer ${token || ""}`,
+          Accept: "application/vnd.github+json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
     );
 
-    const status = response.status;
+    if (!response.ok) {
+      console.error("stars: GitHub API status", response.status);
+      return {
+        statusCode: 502,
+        body: JSON.stringify({ error: "Failed to fetch repository" }),
+        headers: errorHeaders,
+      };
+    }
+
     const data = await response.json();
-
-    console.log("GitHub API status:", status);
-    console.log("GitHub API body:", data);
-
     const stars = data?.stargazers_count;
 
-    if (!stars && stars !== 0) {
+    if (typeof stars !== "number") {
       return {
         statusCode: 502,
         body: JSON.stringify({
           error: "GitHub response missing stargazers_count",
-          received: data,
         }),
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
+        headers: errorHeaders,
       };
     }
 
     return {
       statusCode: 200,
       body: JSON.stringify({ stars }),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
+      headers,
     };
   } catch (err) {
-    console.error("ERROR:", err);
+    console.error("stars ERROR:", err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
+      body: JSON.stringify({ error: "Failed to fetch stars" }),
+      headers: errorHeaders,
     };
   }
 }

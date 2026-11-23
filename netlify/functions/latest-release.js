@@ -1,39 +1,80 @@
+const REPO = "nikolchaa/resuma";
+
+// Matches the bundle names tauri-action produces (see release assets).
+const ASSET_PATTERNS = {
+  windows: /_x64-setup\.exe$/,
+  macos: /_aarch64\.dmg$/,
+  deb: /_amd64\.deb$/,
+  rpm: /\.x86_64\.rpm$/,
+};
+
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+  "Cache-Control": "public, max-age=300",
+  "Netlify-CDN-Cache-Control":
+    "public, s-maxage=900, stale-while-revalidate=86400",
+};
+
+// Errors must never be cached, by the browser or the Netlify CDN.
+const errorHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+  "Cache-Control": "no-store",
+};
+
 export async function handler() {
   try {
     const token = process.env.GITHUB_TOKEN;
-    console.log("Token present:", !!token);
 
     const response = await fetch(
-      "https://api.github.com/repos/nikolchaa/resuma/releases/latest",
+      `https://api.github.com/repos/${REPO}/releases/latest`,
       {
         headers: {
           "User-Agent": "resuma-site",
-          Authorization: `Bearer ${token || ""}`,
+          Accept: "application/vnd.github+json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
     );
 
-    const data = await response.json();
+    if (!response.ok) {
+      console.error("latest-release: GitHub API status", response.status);
+      return {
+        statusCode: 502,
+        body: JSON.stringify({ error: "Failed to fetch latest release" }),
+        headers: errorHeaders,
+      };
+    }
 
-    console.log("GitHub release response:", data);
+    const data = await response.json();
+    const assets = {};
+
+    for (const [key, pattern] of Object.entries(ASSET_PATTERNS)) {
+      const match = data.assets?.find((asset) => pattern.test(asset.name));
+      if (match) {
+        assets[key] = {
+          url: match.browser_download_url,
+          size: match.size,
+        };
+      }
+    }
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ version: data.tag_name }),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
+      body: JSON.stringify({
+        version: data.tag_name,
+        url: data.html_url,
+        assets,
+      }),
+      headers,
     };
   } catch (err) {
     console.error("latest-release ERROR:", err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Failed to fetch version" }),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
+      headers: errorHeaders,
     };
   }
 }

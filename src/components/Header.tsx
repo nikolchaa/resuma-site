@@ -14,8 +14,20 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
+const LATEST_RELEASE_URL =
+  "https://github.com/nikolchaa/resuma/releases/latest";
+
+type ReleaseAsset = { url: string; size: number };
+
+type ReleaseInfo = {
+  version?: string;
+  url?: string;
+  assets?: Partial<Record<"windows" | "macos" | "deb" | "rpm", ReleaseAsset>>;
+};
+
 export function Header() {
-  const [version, setVersion] = useState("Loading...");
+  const [release, setRelease] = useState<ReleaseInfo | null>(null);
+  const [versionLabel, setVersionLabel] = useState("Loading...");
   const [os, setOS] = useState<"Windows" | "MacOS" | "Linux" | "Other">(
     "Other"
   );
@@ -45,12 +57,22 @@ export function Header() {
 
   useEffect(() => {
     fetch("/.netlify/functions/latest-release")
-      .then((res) => res.json())
-      .then((data) => {
-        setVersion(data.version || "Unknown Version");
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
       })
-      .catch(() => setVersion("Unavailable"));
+      .then((data: ReleaseInfo) => {
+        setRelease(data);
+        setVersionLabel(data.version || "Latest release");
+      })
+      .catch(() => setVersionLabel("Latest release"));
   }, []);
+
+  // Until the release is known (prerendered HTML, slow or failed fetch),
+  // every button points at the latest release page instead of a guessed file.
+  const windowsUrl = release?.assets?.windows?.url ?? LATEST_RELEASE_URL;
+  const macUrl = release?.assets?.macos?.url ?? LATEST_RELEASE_URL;
+  const releaseNotesUrl = release?.url ?? LATEST_RELEASE_URL;
 
   return (
     <header className='relative w-full h-[calc(100vh-4rem)] sm:h-screen overflow-hidden flex flex-col items-center justify-center gap-6'>
@@ -72,40 +94,22 @@ export function Header() {
         className='absolute bottom-16 flex flex-col gap-4 items-center justify-center w-full text-center'
       >
         <div className='gap-4 hidden md:flex'>
-          <a
-            href={`https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
-              "v",
-              ""
-            )}_x64-setup.exe`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <a href={windowsUrl} target='_blank' rel='noopener noreferrer'>
             <Button variant={os === "Windows" ? "secondary" : "outline"}>
               <WindowsLogo className='h-6 w-6' />
               Download for Windows
             </Button>
           </a>
 
-          <a
-            href={`https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
-              "v",
-              ""
-            )}_aarch64.dmg`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <a href={macUrl} target='_blank' rel='noopener noreferrer'>
             <Button variant={os === "MacOS" ? "secondary" : "outline"}>
               <AppleLogo className='h-6 w-6' />
-              Download for MacOS{" "}
+              Download for macOS{" "}
               <span className='text-muted-foreground'>(ARM64)</span>
             </Button>
           </a>
 
-          <a
-            href={`https://github.com/nikolchaa/resuma/releases/latest`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <a href={LATEST_RELEASE_URL} target='_blank' rel='noopener noreferrer'>
             <Button variant={os === "Linux" ? "secondary" : "outline"}>
               <LinuxLogo className='h-6 w-6' />
               Download for Linux
@@ -132,14 +136,7 @@ export function Header() {
             >
               <DropdownMenuItem
                 onClick={() =>
-                  window.open(
-                    `https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
-                      "v",
-                      ""
-                    )}_x64-setup.exe`,
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
+                  window.open(windowsUrl, "_blank", "noopener,noreferrer")
                 }
               >
                 <WindowsLogo className='mr-2 h-5 w-5' />
@@ -148,18 +145,11 @@ export function Header() {
 
               <DropdownMenuItem
                 onClick={() =>
-                  window.open(
-                    `https://github.com/nikolchaa/resuma/releases/download/${version}/Resuma_${version.replace(
-                      "v",
-                      ""
-                    )}_aarch64.dmg`,
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
+                  window.open(macUrl, "_blank", "noopener,noreferrer")
                 }
               >
                 <AppleLogo className='mr-2 h-5 w-5' />
-                MacOS{" "}
+                macOS{" "}
                 <span className='ml-auto text-xs text-muted-foreground'>
                   (ARM64)
                 </span>
@@ -167,11 +157,7 @@ export function Header() {
 
               <DropdownMenuItem
                 onClick={() =>
-                  window.open(
-                    "https://github.com/nikolchaa/resuma/releases/latest",
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
+                  window.open(LATEST_RELEASE_URL, "_blank", "noopener,noreferrer")
                 }
               >
                 <LinuxLogo className='mr-2 h-5 w-5' />
@@ -181,7 +167,14 @@ export function Header() {
           </DropdownMenu>
         </div>
         <nav className='text-muted-foreground'>
-          {`${version}`}
+          <a
+            href={releaseNotesUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
+          >
+            {versionLabel}
+          </a>
           <span className='mx-4'>|</span>
           <a
             href='#requirements'
