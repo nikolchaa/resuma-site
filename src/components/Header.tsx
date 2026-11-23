@@ -16,6 +16,9 @@ import {
 const LATEST_RELEASE_URL =
   "https://github.com/nikolchaa/resuma/releases/latest";
 
+const NAV_LINK_CLASS =
+  "relative rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full focus-visible:after:w-full";
+
 type ReleaseAsset = { url: string; size: number };
 
 type ReleaseInfo = {
@@ -79,9 +82,13 @@ export function Header() {
 
       {/* Hero entrance is pure CSS (.hero-in) so the text paints without
           waiting for JavaScript; it is the page's largest contentful paint. */}
-      <div className='hero-in'>
-        <Logo className='max-w-132 w-[calc(100vw-2rem)] text-foreground drop-shadow-lg' />
-      </div>
+      <h1 className='hero-in'>
+        <span className='sr-only'>Resuma</span>
+        <Logo
+          aria-hidden='true'
+          className='max-w-132 w-[calc(100vw-2rem)] text-foreground drop-shadow-lg'
+        />
+      </h1>
 
       <p
         className='hero-in text-md sm:text-xl max-w-132 text-center leading-6 drop-shadow-lg mx-4'
@@ -96,27 +103,31 @@ export function Header() {
         style={{ "--hero-delay": "0.25s" }}
       >
         <div className='gap-4 hidden md:flex'>
-          <a href={windowsUrl} target='_blank' rel='noopener noreferrer'>
-            <Button variant={os === "Windows" ? "secondary" : "outline"}>
-              <WindowsLogo className='h-6 w-6' />
+          <Button asChild variant={os === "Windows" ? "secondary" : "outline"}>
+            <a href={windowsUrl} target='_blank' rel='noopener noreferrer'>
+              <WindowsLogo className='h-6 w-6' aria-hidden='true' />
               Download for Windows
-            </Button>
-          </a>
+            </a>
+          </Button>
 
-          <a href={macUrl} target='_blank' rel='noopener noreferrer'>
-            <Button variant={os === "MacOS" ? "secondary" : "outline"}>
-              <AppleLogo className='h-6 w-6' />
+          <Button asChild variant={os === "MacOS" ? "secondary" : "outline"}>
+            <a href={macUrl} target='_blank' rel='noopener noreferrer'>
+              <AppleLogo className='h-6 w-6' aria-hidden='true' />
               Download for macOS{" "}
               <span className='text-muted-foreground'>(ARM64)</span>
-            </Button>
-          </a>
+            </a>
+          </Button>
 
-          <a href={LATEST_RELEASE_URL} target='_blank' rel='noopener noreferrer'>
-            <Button variant={os === "Linux" ? "secondary" : "outline"}>
-              <LinuxLogo className='h-6 w-6' />
+          <Button asChild variant={os === "Linux" ? "secondary" : "outline"}>
+            <a
+              href={LATEST_RELEASE_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <LinuxLogo className='h-6 w-6' aria-hidden='true' />
               Download for Linux
-            </Button>
-          </a>
+            </a>
+          </Button>
         </div>
         <div className='flex gap-4 md:hidden'>
           <DropdownMenu>
@@ -125,7 +136,8 @@ export function Header() {
                 type='button'
                 className="dark:backdrop-blur-sm select-none hover:cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3"
               >
-                <Download className='mr-2 h-5 w-5' /> Download options
+                <Download className='mr-2 h-5 w-5' aria-hidden='true' />{" "}
+                Download options
                 <ChevronDown className='ml-2 h-4 w-4' />
               </button>
             </DropdownMenuTrigger>
@@ -168,33 +180,38 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <nav className='text-muted-foreground'>
+        <nav aria-label='Release and project links' className='text-muted-foreground'>
           <a
             href={releaseNotesUrl}
             target='_blank'
             rel='noopener noreferrer'
-            className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
+            className={NAV_LINK_CLASS}
           >
             {versionLabel}
           </a>
-          <span className='mx-4'>|</span>
+          <span className='mx-4' aria-hidden='true'>
+            |
+          </span>
           <a
             href='#requirements'
             onClick={(e) => {
-              e.preventDefault();
               const target = document.getElementById("requirements");
-              if (target) window.lenis?.scrollTo(target);
+              if (!target || !window.lenis) return; // native anchor jump
+              e.preventDefault();
+              window.lenis.scrollTo(target);
             }}
-            className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
+            className={NAV_LINK_CLASS}
           >
             Requirements
           </a>
-          <span className='mx-4'>|</span>
+          <span className='mx-4' aria-hidden='true'>
+            |
+          </span>
           <a
             href='https://github.com/nikolchaa/resuma'
             target='_blank'
-            rel='noreferrer'
-            className='relative after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full'
+            rel='noopener noreferrer'
+            className={NAV_LINK_CLASS}
           >
             GitHub
           </a>
