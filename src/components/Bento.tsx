@@ -15,7 +15,6 @@ import Waves from "@/assets/Waves.svg?react";
 import TauriIcon from "@/assets/tauri.svg?react";
 import RustIcon from "@/assets/rust.svg?react";
 import ReactIcon from "@/assets/react.svg?react";
-import Marquee from "react-fast-marquee";
 import { useTheme } from "@/context/themeProvider";
 
 export function Bento() {
@@ -24,7 +23,7 @@ export function Bento() {
 
   return (
     <div className='grid grid-cols-2 sm:grid-cols-4 gap-6 py-12 max-w-6xl'>
-      <SmallCard1 isDark={isDark} />
+      <SmallCard1 />
       <HorizontalCard1 isDark={isDark} />
       <SmallCard2 isDark={isDark} />
       <HorizontalCard2 />
@@ -155,7 +154,11 @@ export function HorizontalCard2() {
   );
 }
 
-export default function SmallCard1({ isDark }: { isDark: boolean }) {
+// One icon set is 3 x (60px icon + 24px margin) = 252px wide; at the old
+// marquee's 40px/s that is one loop every 6.3s.
+const MARQUEE_DURATION = "6.3s";
+
+export default function SmallCard1() {
   const icons = [TauriIcon, RustIcon, ReactIcon];
 
   return (
@@ -169,20 +172,24 @@ export default function SmallCard1({ isDark }: { isDark: boolean }) {
           />
           Built With
         </h3>
-        <Marquee
-          gradient={true}
-          gradientColor={isDark ? "#040404" : "#fff"}
-          gradientWidth={20}
-          speed={40}
-          pauseOnHover={true}
-          className='w-full h-15'
+        <p className='sr-only'>Tauri, Rust, and React</p>
+        {/* CSS marquee (see .marquee in style.css): two identical icon sets
+            slide by half the track width, with faded edges via a mask. */}
+        <div
+          aria-hidden='true'
+          className='marquee w-full h-15 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)]'
         >
-          {icons.map((Icon, i) => (
-            <div key={i} className='mx-3 flex items-center'>
-              <Icon className='h-15 w-15 fill-foreground' />
-            </div>
-          ))}
-        </Marquee>
+          <div
+            className='marquee-track flex w-max h-full'
+            style={{ "--marquee-duration": MARQUEE_DURATION }}
+          >
+            {[...icons, ...icons].map((Icon, i) => (
+              <div key={i} className='mx-3 flex items-center'>
+                <Icon className='h-15 w-15 fill-foreground' />
+              </div>
+            ))}
+          </div>
+        </div>
       </Card>
     </ScrollReveal>
   );
