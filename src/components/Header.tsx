@@ -16,6 +16,10 @@ import {
 const LATEST_RELEASE_URL =
   "https://github.com/nikolchaa/resuma/releases/latest";
 
+// Larger hero buttons; outline ones stay translucent over the fog.
+const HERO_BUTTON_CLASS =
+  "h-11 rounded-lg px-5 text-[0.95rem] transition-[transform,background-color,color,box-shadow] duration-300 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 data-[variant=outline]:bg-background/60 data-[variant=outline]:backdrop-blur-sm";
+
 const NAV_LINK_CLASS =
   "relative rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring after:absolute after:left-0 after:bottom-[-0.125rem] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full focus-visible:after:w-full";
 
@@ -100,7 +104,7 @@ export function Header() {
       </h1>
 
       <p
-        className='hero-in text-md sm:text-xl max-w-132 text-center leading-6 drop-shadow-lg mx-4'
+        className='hero-in text-base sm:text-xl max-w-132 text-center leading-relaxed sm:leading-8 text-balance drop-shadow-lg mx-4'
         style={{ "--hero-delay": "0.1s" }}
       >
         Resuma is an open-source desktop application for building beautiful
@@ -112,14 +116,24 @@ export function Header() {
         style={{ "--hero-delay": "0.25s" }}
       >
         <div className='gap-4 hidden md:flex'>
-          <Button asChild variant={os === "Windows" ? "secondary" : "outline"}>
+          <Button
+            asChild
+            size='lg'
+            variant={os === "Windows" ? "default" : "outline"}
+            className={HERO_BUTTON_CLASS}
+          >
             <a href={windowsUrl} target='_blank' rel='noopener noreferrer'>
               <WindowsLogo className='h-6 w-6' aria-hidden='true' />
               Download for Windows
             </a>
           </Button>
 
-          <Button asChild variant={os === "MacOS" ? "secondary" : "outline"}>
+          <Button
+            asChild
+            size='lg'
+            variant={os === "MacOS" ? "default" : "outline"}
+            className={HERO_BUTTON_CLASS}
+          >
             <a href={macUrl} target='_blank' rel='noopener noreferrer'>
               <AppleLogo className='h-6 w-6' aria-hidden='true' />
               Download for macOS{" "}
@@ -127,7 +141,12 @@ export function Header() {
             </a>
           </Button>
 
-          <Button asChild variant={os === "Linux" ? "secondary" : "outline"}>
+          <Button
+            asChild
+            size='lg'
+            variant={os === "Linux" ? "default" : "outline"}
+            className={HERO_BUTTON_CLASS}
+          >
             <a
               href={LATEST_RELEASE_URL}
               target='_blank'
@@ -143,7 +162,7 @@ export function Header() {
             <DropdownMenuTrigger asChild>
               <button
                 type='button'
-                className="dark:backdrop-blur-sm select-none hover:cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3"
+                className="dark:backdrop-blur-sm select-none hover:cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-11 rounded-lg px-5 text-[0.95rem]"
               >
                 <Download className='mr-2 h-5 w-5' aria-hidden='true' />{" "}
                 Download options
