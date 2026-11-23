@@ -45,6 +45,10 @@ function AccordionTrigger({
   )
 }
 
+// Answers stay mounted (forceMount) so their text is part of the prerendered
+// HTML for search engines. Closed panels collapse to zero height and become
+// `invisible`, which also removes them from the accessibility tree and the
+// tab order; visibility flips only after the closing transition ends.
 function AccordionContent({
   className,
   children,
@@ -52,11 +56,14 @@ function AccordionContent({
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   return (
     <AccordionPrimitive.Content
+      forceMount
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      className="grid text-sm transition-[grid-template-rows,visibility] duration-200 ease-out motion-reduce:transition-none data-[state=closed]:invisible data-[state=closed]:grid-rows-[0fr] data-[state=open]:grid-rows-[1fr]"
       {...props}
     >
-      <div className={cn("pt-0 pb-4", className)}>{children}</div>
+      <div className="overflow-hidden">
+        <div className={cn("pt-0 pb-4", className)}>{children}</div>
+      </div>
     </AccordionPrimitive.Content>
   )
 }
