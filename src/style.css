@@ -274,3 +274,16 @@
     }
   }
 }
+
+/* Bento cards: teal edge and soft glow on hover. Unlayered on purpose so it
+   beats the Card's dark:border-input utility. */
+.bento [data-slot="card"] {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.bento [data-slot="card"]:hover {
+  border-color: color-mix(in oklab, var(--primary) 45%, transparent);
+  box-shadow: 0 18px 40px -24px color-mix(in oklab, var(--primary) 55%, transparent);
+}
