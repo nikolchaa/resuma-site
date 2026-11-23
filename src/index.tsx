@@ -88,7 +88,7 @@ export function App() {
             highlight='minutes'
           />
           <ScrollReveal>
-            <p className='text-muted-foreground text-center max-w-xl mx-auto'>
+            <p className='text-muted-foreground text-center max-w-xl mx-auto mt-3 text-balance sm:text-lg'>
               Resuma is a privacy-first resume builder, powered by local AI or
               any model you choose.
             </p>
@@ -107,7 +107,7 @@ export function App() {
             highlight='requirements'
           />
           <ScrollReveal>
-            <p className='text-muted-foreground text-center max-w-xl mx-auto'>
+            <p className='text-muted-foreground text-center max-w-xl mx-auto mt-3 text-balance sm:text-lg'>
               Resuma runs on pretty much any modern desktop computer.
             </p>
           </ScrollReveal>
@@ -123,7 +123,7 @@ export function App() {
             highlight='questions'
           />
           <ScrollReveal>
-            <p className='text-muted-foreground text-center max-w-xl mx-auto'>
+            <p className='text-muted-foreground text-center max-w-xl mx-auto mt-3 text-balance sm:text-lg'>
               Everything you need to know about Resuma.
             </p>
           </ScrollReveal>

@@ -22,7 +22,7 @@ export function Bento() {
   const isDark = resolvedTheme === "dark";
 
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-4 gap-6 py-12 max-w-6xl'>
+    <div className='bento grid grid-cols-2 sm:grid-cols-4 gap-6 py-12 max-w-6xl'>
       <SmallCard1 />
       <HorizontalCard1 isDark={isDark} />
       <SmallCard2 isDark={isDark} />
