@@ -1,0 +1,21 @@
+# Headers only. Build settings stay in the Netlify UI; adding a [build]
+# block here would override them.
+
+# Vite fingerprints everything in /assets, so it can be cached for a year.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    X-Frame-Options = "DENY"
+    # The sha256 is the inline theme script in index.html. If that script
+    # changes, recompute it from dist/index.html or the theme flash returns
+    # (the browser will block the script).
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-LofYzEJ+RO46HRUQBUzEZoRDi/V9VIBwOP4MLqqLLk8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
