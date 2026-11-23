@@ -42,7 +42,11 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
           <img
             onDragStart={(e) => e.preventDefault()}
             src={isDark ? ResumaLight : ResumaDark}
-            alt='Resuma Light'
+            alt={`Resuma home screen in the ${isDark ? "light" : "dark"} theme`}
+            width={1602}
+            height={902}
+            loading='lazy'
+            decoding='async'
             className='border w-full rotate-12 skew-12 absolute left-[2.5rem] transition-all duration-300 bottom-[2.5rem] group-hover:bottom-[3rem] sm:group-hover:bottom-[3.5rem] rounded-[0.125rem]'
             style={{ clipPath: "inset(0 0 20% 0)" }} // Fix for the pixel leakage
           />
@@ -50,18 +54,19 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
           <img
             onDragStart={(e) => e.preventDefault()}
             src={isDark ? ResumaDark : ResumaLight}
-            alt='Resuma Dark'
+            alt={`Resuma home screen in the ${isDark ? "dark" : "light"} theme`}
+            width={1602}
+            height={902}
+            loading='lazy'
+            decoding='async'
             className='border w-full rotate-12 skew-12 absolute left-[0.0625rem] transition-all duration-300 bottom-0 group-hover:bottom-[0.0625rem] sm:group-hover:bottom-[0.125rem] rounded-[0.125rem]'
           />
         </div>
         <div className='absolute inset-[1.5rem] w-[40%] flex flex-col justify-center text-muted-foreground'>
-          <span
-            className={
-              "text-xl font-semibold flex items-center gap-2 text-foreground"
-            }
-          >
-            <Wand2 className='w-6 h-6 text-primary inline' /> Themes
-          </span>
+          <h3 className='text-xl font-semibold flex items-center gap-2 text-foreground'>
+            <Wand2 className='w-6 h-6 text-primary inline' aria-hidden='true' />{" "}
+            Themes
+          </h3>
           Resuma offers dark and light UI themes.
         </div>
       </Card>
@@ -101,6 +106,24 @@ export function HorizontalCard2() {
     window.addEventListener("touchend", up);
   };
 
+  const onKeyDown = (e: KeyboardEvent) => {
+    const steps: Record<string, number> = {
+      ArrowLeft: -5,
+      ArrowDown: -5,
+      ArrowRight: 5,
+      ArrowUp: 5,
+      PageDown: -20,
+      PageUp: 20,
+    };
+    if (e.key in steps) {
+      e.preventDefault();
+      setPosition((p) => Math.max(0, Math.min(100, p + steps[e.key])));
+    } else if (e.key === "Home" || e.key === "End") {
+      e.preventDefault();
+      setPosition(e.key === "Home" ? 0 : 100);
+    }
+  };
+
   return (
     <ScrollReveal className='col-span-2 aspect-[436/206] order-4 sm:order-4'>
       <Card className='w-full h-full relative overflow-hidden p-0'>
@@ -108,9 +131,10 @@ export function HorizontalCard2() {
           {/* After AI */}
           <div className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-foreground bg-card min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'>
             <p>
-              As an ex-employee, I led key projects, managed client workflows,
-              and coordinated cross-functional teams, achieving notable results
-              in both client satisfaction and project completion.
+              <span className='sr-only'>After AI enhancement: </span>
+              Led key client projects end to end, managing workflows and
+              coordinating cross-functional teams to deliver results that
+              improved both client satisfaction and project completion rates.
             </p>
           </div>
 
@@ -119,21 +143,33 @@ export function HorizontalCard2() {
             className='absolute inset-0 p-3 text-left text-sm leading-relaxed text-muted-foreground bg-card min-[31.25em]:max-[40em]:text-lg min-[27.875em]:max-[31.25em]:text-base'
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           >
-            <p>Worked on various client projects...</p>
+            <p>
+              <span className='sr-only'>Before AI enhancement: </span>
+              Worked on various client projects...
+            </p>
           </div>
 
           {/* Slider Handle */}
           <div
+            role='slider'
+            tabIndex={0}
+            aria-label='Compare the original text with the AI-enhanced version'
+            aria-orientation='horizontal'
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(position)}
+            aria-valuetext={`${Math.round(position)}% original text`}
             onMouseDown={onMouseDown}
             onTouchStart={onTouchStart}
-            className='absolute top-0 bottom-0 flex items-center cursor-ew-resize'
+            onKeyDown={onKeyDown}
+            className='group/handle absolute top-0 bottom-0 flex items-center cursor-ew-resize outline-none'
             style={{
               left: `${position}%`,
               transform: "translateX(-50%)",
             }}
           >
             <div className='w-1 h-full bg-primary' />
-            <div className='w-5 h-5 bg-primary rounded-full shadow-md mx-auto absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2' />
+            <div className='w-5 h-5 bg-primary rounded-full shadow-md mx-auto absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 group-focus-visible/handle:ring-4 group-focus-visible/handle:ring-ring/50' />
           </div>
         </div>
 
@@ -141,10 +177,10 @@ export function HorizontalCard2() {
         <div
           className={`absolute bottom-0 left-0 w-full text-foreground z-10 bg-gradient-to-t from-card to-transparent p-6 pointer-events-none min-[40em]:max-[43.9375em]:hidden max-[22.25em]:hidden min-[43.9375em]:max-[51.75em]:p-3 max-[26.125em]:p-3`}
         >
-          <span className='text-xl font-semibold flex items-center gap-2 mb-1'>
-            <Sparkles className='w-6 h-6 text-primary inline' />
+          <h3 className='text-xl font-semibold flex items-center gap-2 mb-1'>
+            <Sparkles className='w-6 h-6 text-primary inline' aria-hidden='true' />
             AI Enhancement
-          </span>
+          </h3>
           <p className='text-sm text-muted-foreground max-[26.125em]:hidden min-[43.9375em]:max-[51.75em]:hidden'>
             Slide to reveal how AI improves your tone and impact.
           </p>
@@ -201,6 +237,7 @@ function SmallCard2({ isDark }: { isDark: boolean }) {
       <Card className={"w-full h-full py-0 gap-0"}>
         <video
           className='w-full object-cover rounded-xl'
+          aria-label='Creating a new resume in Resuma'
           autoPlay
           loop
           muted
@@ -260,7 +297,10 @@ function SmallCard4() {
       <Card className='w-full h-full relative overflow-hidden'>
         <div className='absolute inset-0 flex flex-col items-center justify-center gap-[10%] px-[5%] text-center text-[min(4vw,0.95rem)]'>
           {/* GitHub Icon */}
-          <GitHub className='w-[18%] max-w-[2.5rem] h-auto' />
+          <GitHub
+            className='w-[18%] max-w-[2.5rem] h-auto'
+            aria-hidden='true'
+          />
 
           {/* Text label */}
           <div className='text-muted-foreground leading-snug text-[min(3.2vw,0.8rem)] md:text-base'>
@@ -268,24 +308,25 @@ function SmallCard4() {
           </div>
 
           {/* Button that links to repo */}
-          <a
-            href='https://github.com/nikolchaa/resuma'
-            target='_blank'
-            rel='noopener noreferrer'
+          <Button
+            asChild
+            variant='default'
+            className='text-[min(3.2vw,0.8rem)]'
+            size='sm'
           >
-            <Button
-              variant='default'
-              className='text-[min(3.2vw,0.8rem)]'
-              size='sm'
+            <a
+              href='https://github.com/nikolchaa/resuma'
+              target='_blank'
+              rel='noopener noreferrer'
             >
-              <Star className='w-4 h-4' />
+              <Star className='w-4 h-4' aria-hidden='true' />
               {stars !== null
                 ? `${stars.toLocaleString()} ${stars === 1 ? "star" : "stars"}`
                 : starsFailed
                 ? "Star on GitHub"
                 : "Loading..."}
-            </Button>
-          </a>
+            </a>
+          </Button>
         </div>
       </Card>
     </ScrollReveal>
@@ -303,10 +344,10 @@ export function BigCard() {
         </div>
 
         {/* Title */}
-        <div className='text-2xl font-bold flex items-center gap-2 z-10 min-sm:max-[42.125rem]:text-lg max-[21.3125rem]:text-lg'>
-          <Cpu className='w-6 h-6 text-muted-foreground' />
+        <h3 className='text-2xl font-bold flex items-center gap-2 z-10 min-sm:max-[42.125rem]:text-lg max-[21.3125rem]:text-lg'>
+          <Cpu className='w-6 h-6 text-muted-foreground' aria-hidden='true' />
           Bring your own model
-        </div>
+        </h3>
 
         {/* Description */}
         <div className='text-muted-foreground text-sm leading-snug z-10 min-sm:max-[42.125rem]:text-xs min-[21.3125rem]:max-sm:text-base max-[21.3125rem]:text-base'>
@@ -320,7 +361,7 @@ export function BigCard() {
         </div>
 
         {/* Watermark + Waves */}
-        <div className='absolute bottom-0 left-0 w-full'>
+        <div className='absolute bottom-0 left-0 w-full' aria-hidden='true'>
           {/* Huge AI Watermark */}
           <span
             className='text-foreground/10 font-bold absolute left-1/2 -translate-x-1/2
