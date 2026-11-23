@@ -315,8 +315,24 @@
     filter: blur(6px);
   }
 
+  /* "Built with" logos: two identical sets scrolled by half their width. */
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .marquee-track {
+    animation: marquee var(--marquee-duration, 10s) linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero-in {
+    .hero-in,
+    .marquee-track {
       animation: none;
     }
 
