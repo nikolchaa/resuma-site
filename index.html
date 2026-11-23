@@ -2,25 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Resuma" />
-    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
 
-    <!-- SEO Meta -->
-    <title>Resuma – Build Resumes with Local AI</title>
+    <!-- Apply the saved or system theme before first paint (no light flash
+         for dark-mode visitors). Keep in sync with ThemeProvider's storage
+         key; if this script changes, update its hash in netlify.toml. -->
+    <script>(function(){var t;try{t=localStorage.getItem("vite-ui-theme")}catch(e){}var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.add(d?"dark":"light")})()</script>
+
+    <title>Resuma – Free, Open-Source AI Resume Builder for Desktop</title>
     <meta
       name="description"
-      content="Open-source desktop app for building professional resumes with AI that runs on your device by default, or bring your own model via Ollama, LM Studio, or a cloud API."
+      content="Build professional, ATS-friendly resumes with a free, open-source desktop app. AI runs on your device by default, or bring Ollama, LM Studio, or a cloud API."
+    />
+    <link rel="canonical" href="https://resuma.download/" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
     <meta name="author" content="Nikola Ranđelović" />
     <meta
       name="keywords"
-      content="resume builder, open-source resume app, AI resume builder, local AI, llama.cpp, GGUF, Hugging Face, Ollama, LM Studio, Tauri, Rust, React, Resuma, resume editor, privacy-first app"
+      content="resume builder, AI resume builder, free resume builder, open-source resume app, ATS resume, local AI, offline resume builder, llama.cpp, GGUF, Hugging Face, Ollama, LM Studio, Resuma"
     />
     <meta name="theme-color" content="#00d9cb" />
 
@@ -32,19 +35,41 @@
       crossorigin
     />
 
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Resuma" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <!-- Open Graph -->
-    <meta property="og:title" content="Resuma – Build Resumes with Local AI" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Resuma" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://resuma.download/" />
+    <meta
+      property="og:title"
+      content="Resuma – Free, Open-Source AI Resume Builder"
+    />
     <meta
       property="og:description"
       content="Build beautiful, professional resumes with AI that runs on your device by default. Resuma is open-source and privacy-first."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://resuma.download/" />
     <meta property="og:image" content="https://resuma.download/opengraph.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Resuma – open-source AI resume builder"
+    />
 
-    <!-- Twitter Card -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Resuma – Build Resumes with Local AI" />
+    <meta
+      name="twitter:title"
+      content="Resuma – Free, Open-Source AI Resume Builder"
+    />
     <meta
       name="twitter:description"
       content="Resuma helps you build standout resumes with AI. Local by default. 100% yours."
@@ -53,28 +78,63 @@
       name="twitter:image"
       content="https://resuma.download/opengraph.png"
     />
+    <meta
+      name="twitter:image:alt"
+      content="Resuma – open-source AI resume builder"
+    />
     <meta name="twitter:creator" content="@nikolchaa" />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- Structured data. FAQPage data is rendered next to the FAQ itself
+         (src/content/faq.ts). No ratings or version: nothing here should go
+         stale or claim more than the page shows. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Resuma",
-        "operatingSystem": "Windows, macOS, Linux",
-        "applicationCategory": "ProductivityApplication",
-        "downloadUrl": "https://resuma.download",
-        "offers": {
-          "@type": "Offer",
-          "price": "0.00",
-          "priceCurrency": "USD"
-        },
-        "description": "Open-source desktop app for building professional resumes with AI that runs on your device by default, or bring your own model via Ollama, LM Studio, or a cloud API.",
-        "creator": {
-          "@type": "Person",
-          "name": "Nikola Ranđelović",
-          "url": "https://nikolchaa.com"
-        }
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://resuma.download/#website",
+            "url": "https://resuma.download/",
+            "name": "Resuma",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://resuma.download/#author" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://resuma.download/#app",
+            "name": "Resuma",
+            "url": "https://resuma.download/",
+            "description": "Free, open-source desktop app for building professional, ATS-friendly resumes. AI runs on your device by default, or bring your own model via Ollama, LM Studio, or a cloud API.",
+            "applicationCategory": "BusinessApplication",
+            "applicationSubCategory": "Resume builder",
+            "operatingSystem": "Windows 10, Windows 11, macOS (Apple Silicon), Linux",
+            "downloadUrl": "https://github.com/nikolchaa/resuma/releases/latest",
+            "image": "https://resuma.download/opengraph.png",
+            "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+            "isAccessibleForFree": true,
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Local AI resume writing with llama.cpp",
+              "Bring your own model: Hugging Face GGUF, Ollama, LM Studio, or a cloud API",
+              "Tailoring to a job description and ATS enhancement",
+              "PDF and plain-text export",
+              "Light and dark themes",
+              "English and Serbian interface"
+            ],
+            "author": { "@id": "https://resuma.download/#author" },
+            "sameAs": ["https://github.com/nikolchaa/resuma"]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://resuma.download/#author",
+            "name": "Nikola Ranđelović",
+            "url": "https://nikolchaa.com"
+          }
+        ]
       }
     </script>
   </head>
