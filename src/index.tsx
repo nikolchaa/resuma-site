@@ -61,7 +61,8 @@ export function App() {
           />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto'>
-              Resuma is a privacy-first resume builder powered by local AI.
+              Resuma is a privacy-first resume builder, powered by local AI or
+              any model you choose.
             </p>
           </ScrollReveal>
           <Bento />
@@ -106,7 +107,9 @@ export function App() {
                   <AccordionTrigger>Is Resuma free to use?</AccordionTrigger>
                   <AccordionContent>
                     Yes - Resuma is 100% free and open-source under the GNU
-                    GPLv3 license. You can find more about the licensing here:{" "}
+                    GPLv3 license. Cloud AI providers are optional and bill you
+                    directly for their API usage. You can find more about the
+                    licensing here:{" "}
                     <a
                       href='https://github.com/nikolchaa/resuma/blob/main/LICENSE'
                       target='_blank'
@@ -122,10 +125,26 @@ export function App() {
                 <ScrollReveal>
                   <AccordionTrigger>Does Resuma work offline?</AccordionTrigger>
                   <AccordionContent>
-                    Yes! Resuma is a Tauri desktop application, which means all
-                    features are local to your machine. Once installed, it
-                    doesn't require any internet connection to function, giving
-                    you full control and privacy.
+                    Yes, with the default local AI. Resuma is a Tauri desktop
+                    application, and its AI runs on your machine. You only need
+                    an internet connection once, during onboarding, to download
+                    the AI model and runtime. After that, everything works
+                    offline. If you choose a cloud AI provider instead, AI
+                    features need an internet connection.
+                  </AccordionContent>
+                </ScrollReveal>
+              </AccordionItem>
+              <AccordionItem value='item-models'>
+                <ScrollReveal>
+                  <AccordionTrigger>Which AI models can I use?</AccordionTrigger>
+                  <AccordionContent>
+                    By default, Resuma downloads a Qwen3 model sized for your
+                    hardware (0.6B, 4B, or 14B) and runs it locally with
+                    llama.cpp. You can also search thousands of GGUF models on
+                    Hugging Face and download them right in the app, connect a
+                    model host like Ollama or LM Studio, or use a cloud API -
+                    OpenAI, Anthropic, Google Gemini, DeepSeek, Kimi, or any
+                    OpenAI-compatible endpoint - with your own API key.
                   </AccordionContent>
                 </ScrollReveal>
               </AccordionItem>
@@ -136,9 +155,10 @@ export function App() {
                   </AccordionTrigger>
                   <AccordionContent>
                     Resuma supports Windows, macOS (Apple Silicon-only), and
-                    Linux. We provide <code>.exe</code>, <code>.dmg</code>, and{" "}
-                    <code>.AppImage</code> binaries respectively. If you're on
-                    an unsupported OS, you can still build it from source using
+                    Linux. We provide a <code>.exe</code> installer for Windows,
+                    a <code>.dmg</code> for macOS, and <code>.deb</code> and{" "}
+                    <code>.rpm</code> packages for Linux. If you're on an
+                    unsupported OS, you can still build it from source using
                     Rust and Node.js.
                   </AccordionContent>
                 </ScrollReveal>
@@ -147,9 +167,23 @@ export function App() {
                 <ScrollReveal>
                   <AccordionTrigger>Where is my data stored?</AccordionTrigger>
                   <AccordionContent>
-                    Your data never leaves your device. Resuma stores resumes
-                    locally. No data is ever synced or sent to a server - your
-                    information is yours alone.
+                    Resuma stores your resumes, settings, and AI models locally
+                    on your device, and never uploads or syncs your resumes to a
+                    server. With the default local AI, nothing leaves your
+                    device. If you choose a cloud AI provider, the resume text
+                    and job description for each AI action are sent to that
+                    provider under their terms. API keys are kept in your
+                    system's credential manager, and Discord status is optional
+                    and off by default. Read more in the{" "}
+                    <a
+                      href='https://github.com/nikolchaa/resuma/blob/main/PRIVACY.md'
+                      target='_blank'
+                      rel='noreferrer'
+                      className='text-primary underline'
+                    >
+                      Privacy Policy
+                    </a>
+                    .
                   </AccordionContent>
                 </ScrollReveal>
               </AccordionItem>
@@ -159,7 +193,8 @@ export function App() {
                     Can I import/export my resumes?
                   </AccordionTrigger>
                   <AccordionContent>
-                    Yes. You can export your resumes as PDFs and import/export{" "}
+                    Yes. You can export your resumes as PDF or plain text, and
+                    import/export{" "}
                     <code>.resume</code> files to move resumes between devices
                     or versions.
                   </AccordionContent>
