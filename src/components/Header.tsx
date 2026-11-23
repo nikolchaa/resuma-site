@@ -28,8 +28,14 @@ type ReleaseInfo = {
 };
 
 export function Header() {
-  const [release, setRelease] = useState<ReleaseInfo | null>(null);
-  const [versionLabel, setVersionLabel] = useState("Loading...");
+  // Start from the release baked in at build time (vite.config.ts) so the
+  // prerendered page already shows the version and direct download links.
+  const [release, setRelease] = useState<ReleaseInfo | null>(
+    __LATEST_RELEASE__
+  );
+  const [versionLabel, setVersionLabel] = useState(
+    __LATEST_RELEASE__?.version ?? "Loading..."
+  );
   const [os, setOS] = useState<"Windows" | "MacOS" | "Linux" | "Other">(
     "Other"
   );
@@ -67,7 +73,10 @@ export function Header() {
         setRelease(data);
         setVersionLabel(data.version || "Latest release");
       })
-      .catch(() => setVersionLabel("Latest release"));
+      .catch(() =>
+        // Keep the build-time version if the live check fails.
+        setVersionLabel(__LATEST_RELEASE__?.version ?? "Latest release")
+      );
   }, []);
 
   // Until the release is known (prerendered HTML, slow or failed fetch),
