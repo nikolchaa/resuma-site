@@ -143,7 +143,7 @@ export function App() {
                             href={item.link.href}
                             target='_blank'
                             rel='noopener noreferrer'
-                            className='text-primary underline'
+                            className='text-primary-text underline underline-offset-2 hover:decoration-2'
                           >
                             {item.link.label}
                           </a>

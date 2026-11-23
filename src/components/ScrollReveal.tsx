@@ -82,7 +82,7 @@ export function ScrollRevealText({
             className='reveal-word whitespace-pre text-[clamp(2rem,4vw,3rem)] font-semibold z-10'
           >
             <span
-              className={isHighlighted ? "text-primary" : "text-foreground"}
+              className={isHighlighted ? "text-primary-text" : "text-foreground"}
             >
               {cleanWord}
             </span>
