@@ -33,13 +33,13 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center justify-between gap-6 rounded-md py-5 text-left text-base font-medium text-foreground transition-colors outline-none hover:text-primary-text sm:text-lg [&[data-state=open]]:text-primary-text focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
           className
         )}
         {...props}
       >
         {children}
-        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        <ChevronDownIcon aria-hidden="true" className="text-muted-foreground pointer-events-none size-5 shrink-0 transition-transform duration-300" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
@@ -70,7 +70,7 @@ function AccordionContent({
         className="grid transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none group-data-[state=closed]/content:invisible group-data-[state=closed]/content:grid-rows-[0fr] group-data-[state=open]/content:grid-rows-[1fr]"
       >
         <div className="overflow-hidden">
-          <div className={cn("pt-0 pb-4", className)}>{children}</div>
+          <div className={cn("max-w-3xl pt-0 pb-6 pr-10 text-[0.95rem] leading-relaxed text-muted-foreground", className)}>{children}</div>
         </div>
       </div>
     </AccordionPrimitive.Content>
