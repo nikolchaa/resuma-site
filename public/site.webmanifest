@@ -1,6 +1,11 @@
 {
   "name": "Resuma - AI Resume Builder",
   "short_name": "Resuma",
+  "description": "Free, open-source desktop app for building professional resumes with AI that runs on your device.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
