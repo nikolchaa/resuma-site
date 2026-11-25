@@ -99,6 +99,13 @@ const BRAND = 0x00d9cb;
 const BLUR_FACTOR = 0.65;
 /** The fog drifts slowly, so 30 fps is indistinguishable from 60 and halves GPU work. */
 const FRAME_INTERVAL_MS = 1000 / 30;
+/**
+ * Most pixels the shader runs on per frame (about 1280 x 720). Large high-DPI
+ * screens would otherwise shade up to ~3.7M pixels a frame, too much for
+ * integrated GPUs; the fog is soft enough that upscaling past this is
+ * invisible.
+ */
+const MAX_PIXELS = 1280 * 720;
 
 /** sRGB hex -> linear RGB, matching THREE.Color with colour management on. */
 function hexToLinear(hex: number): [number, number, number] {
@@ -185,12 +192,18 @@ function createFog(canvas: HTMLCanvasElement, dark: boolean): FogRenderer | null
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = Math.max(1, Math.floor((rect.width * dpr) / scale));
-    height = Math.max(1, Math.floor((rect.height * dpr) / scale));
+    const w = (rect.width * dpr) / scale;
+    const h = (rect.height * dpr) / scale;
+    const shrink = Math.min(1, Math.sqrt(MAX_PIXELS / Math.max(1, w * h)));
+    width = Math.max(1, Math.floor(w * shrink));
+    height = Math.max(1, Math.floor(h * shrink));
     canvas.width = width;
     canvas.height = height;
     gl.viewport(0, 0, width, height);
-    gl.uniform2f(uResolution, rect.width / scale, rect.height / scale);
+    // Vanta sets iResolution to the CSS size / scale, which equals the canvas
+    // size / dpr. Keeping the second form means a capped canvas still shows
+    // the same pattern, just at a lower resolution.
+    gl.uniform2f(uResolution, width / dpr, height / dpr);
   };
 
   const start = performance.now();
