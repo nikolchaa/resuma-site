@@ -1,11 +1,19 @@
 const REPO = "nikolchaa/resuma";
 
-// Matches the bundle names tauri-action produces (see release assets).
+// Matches the bundle names tauri-action produces (see release assets), per
+// platform and CPU: x64 (Intel/AMD) and arm64 (Apple silicon, Snapdragon and
+// other ARM computers).
 const ASSET_PATTERNS = {
-  windows: /_x64-setup\.exe$/,
-  macos: /_aarch64\.dmg$/,
-  deb: /_amd64\.deb$/,
-  rpm: /\.x86_64\.rpm$/,
+  "windows-x64": /_x64-setup\.exe$/,
+  "windows-arm64": /_arm64-setup\.exe$/,
+  "macos-arm64": /_aarch64\.dmg$/,
+  "macos-x64": /_x64\.dmg$/,
+  "appimage-x64": /_amd64\.AppImage$/,
+  "appimage-arm64": /_aarch64\.AppImage$/,
+  "deb-x64": /_amd64\.deb$/,
+  "deb-arm64": /_arm64\.deb$/,
+  "rpm-x64": /\.x86_64\.rpm$/,
+  "rpm-arm64": /\.aarch64\.rpm$/,
 };
 
 // `durable` keeps one cached copy shared by every Netlify edge node, so most
