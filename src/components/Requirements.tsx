@@ -117,7 +117,7 @@ const SPECS: Spec[] = [
     rows: [
       {
         label: "Installer",
-        value: "~5MB (Windows), ~6MB (macOS), ~7MB (Linux)",
+        value: "~5MB (Windows), ~6MB (macOS), ~8MB (Linux)",
       },
       { label: "App", value: "~16MB installed" },
       {
@@ -127,12 +127,13 @@ const SPECS: Spec[] = [
       },
       {
         label: "Runtime",
-        value: "~35MB (CPU), ~60MB (Vulkan), ~300MB (CUDA), ~1.5GB (HIP)",
+        value:
+          "~16MB (Metal), ~24MB (CPU), ~37MB (Vulkan), ~270MB (HIP), or ~715MB (CUDA, with NVIDIA's runtime files) to download",
       },
       {
         label: "Estimated total",
         value:
-          "~850MB to ~11GB depending on runtime and model, none of it needed with No AI, Ollama, LM Studio, or a cloud API",
+          "~850MB to ~10GB of downloads depending on runtime and model, none of it needed with No AI, Ollama, LM Studio, or a cloud API",
       },
     ],
   },
