@@ -9,6 +9,16 @@ import NewDark from "@/assets/New Resume - Dark.mp4";
 
 import ResumaDark from "@/assets/ResumaDark.webp";
 import ResumaLight from "@/assets/ResumaLight.webp";
+import ResumaDark800 from "@/assets/ResumaDark-800.webp";
+import ResumaLight800 from "@/assets/ResumaLight-800.webp";
+
+// The screenshots fill half of a two-column card: about half the viewport on
+// phones and ~220px from the sm breakpoint, so 800px covers 3x screens.
+const SCREENSHOT_SIZES = "(min-width: 640px) 230px, 50vw";
+const screenshotSrcSet = (dark: boolean) =>
+  dark
+    ? `${ResumaDark800} 800w, ${ResumaDark} 1602w`
+    : `${ResumaLight800} 800w, ${ResumaLight} 1602w`;
 
 import GitHub from "@/assets/GitHub.svg?react";
 import Waves from "@/assets/Waves.svg?react";
@@ -41,7 +51,9 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
         <div className='absolute w-[50%] h-[125%] overflow-hidden bottom-0 right-0 rounded-br-xl'>
           <img
             onDragStart={(e) => e.preventDefault()}
-            src={isDark ? ResumaLight : ResumaDark}
+            src={isDark ? ResumaLight800 : ResumaDark800}
+            srcSet={screenshotSrcSet(!isDark)}
+            sizes={SCREENSHOT_SIZES}
             alt={`Resuma home screen in the ${isDark ? "light" : "dark"} theme`}
             width={1602}
             height={902}
@@ -53,7 +65,9 @@ function HorizontalCard1({ isDark }: { isDark: boolean }) {
 
           <img
             onDragStart={(e) => e.preventDefault()}
-            src={isDark ? ResumaDark : ResumaLight}
+            src={isDark ? ResumaDark800 : ResumaLight800}
+            srcSet={screenshotSrcSet(isDark)}
+            sizes={SCREENSHOT_SIZES}
             alt={`Resuma home screen in the ${isDark ? "dark" : "light"} theme`}
             width={1602}
             height={902}
