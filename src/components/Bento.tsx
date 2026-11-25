@@ -231,18 +231,57 @@ export default function SmallCard1() {
   );
 }
 
+// The demo video loads only when it nears the viewport, in the visitor's theme
+// (the prerendered page can't know it, so it used to fetch the light video
+// first), and plays only while on screen.
 function SmallCard2({ isDark }: { isDark: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [requested, setRequested] = useState(false);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setRequested(true);
+      setInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+        if (entry.isIntersecting) setRequested(true);
+      },
+      { rootMargin: "200px 0px" }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  const src = requested ? (isDark ? NewDark : NewLight) : undefined;
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !src) return;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (inView && !reducedMotion) video.play().catch(() => {});
+    else video.pause();
+  }, [inView, src]);
+
   return (
     <ScrollReveal className='aspect-square order-3 sm:order-3'>
       <Card className={"w-full h-full py-0 gap-0"}>
         <video
-          className='w-full object-cover rounded-xl'
+          ref={videoRef}
+          className='w-full h-full object-cover rounded-xl'
           aria-label='Creating a new resume in Resuma'
-          autoPlay
           loop
           muted
           playsInline
-          src={isDark ? NewDark : NewLight}
+          preload={src ? "auto" : "none"}
+          src={src}
         />
       </Card>
     </ScrollReveal>
