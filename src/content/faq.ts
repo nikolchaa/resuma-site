@@ -45,6 +45,12 @@ export const FAQ: FaqItem[] = [
       "If you turn AI on, Resuma by default downloads a Qwen3 model sized for your hardware (0.6B, 4B, or 14B) and runs it locally with llama.cpp. You can also search thousands of GGUF models on Hugging Face and download them right in the app, connect a model host like Ollama or LM Studio, or use a cloud API - OpenAI, Anthropic, Google Gemini, DeepSeek, Kimi, or any OpenAI-compatible endpoint - with your own API key.",
   },
   {
+    id: "templates",
+    question: "Can I change how my resume looks?",
+    answer:
+      "Yes. Resuma comes with four built-in templates - Professional, Modern, Compact, and the two-column Sidebar - and an editor mode for every level of control. Simple shows only the forms. Design adds colours, section order, renamed sections, and custom sections for languages, volunteering, certificates, and more. Source lets you edit the resume and its template as text in Resuma Markup (`.rsm`), with live error checking. Templates you make can be saved to My templates and reused in any resume, and with AI turned on, Ask AI can suggest content or template changes for you to review before applying. The preview updates as you type, without flashing.",
+  },
+  {
     id: "platforms",
     question: "What platforms are supported?",
     answer:
@@ -54,7 +60,7 @@ export const FAQ: FaqItem[] = [
     id: "data",
     question: "Where is my data stored?",
     answer:
-      "Resuma stores your resumes, settings, and AI models locally on your device, and never uploads or syncs your resumes to a server. With No AI or the default local AI, nothing leaves your device. If you choose a cloud AI provider, the resume text and job description for each AI action are sent to that provider under their terms. API keys are kept in your system's credential manager, and Discord status is optional and off by default.",
+      "Resuma stores your resumes, settings, and AI models locally on your device, and never uploads or syncs your resumes to a server. Resumes and settings are encrypted on disk, and a recovery key lets you open them on another computer. With No AI or the default local AI, nothing leaves your device. If you choose a cloud AI provider, the resume text and job description for each AI action are sent to that provider under their terms. API keys are kept in your system's credential manager, and Discord status and connections from other AI apps are optional and off by default.",
     link: {
       prefix: " Read more in the ",
       label: "Privacy Policy",
@@ -66,7 +72,13 @@ export const FAQ: FaqItem[] = [
     id: "export",
     question: "Can I import/export my resumes?",
     answer:
-      "Yes. You can export your resumes as PDF or plain text, and import/export `.resume` files to move resumes between devices or versions.",
+      "Yes. You can export your resumes as PDF or plain text, import and export `.resume` files to move single resumes between devices, and create a password-protected encrypted backup of all your resumes and your profile to restore on another computer.",
+  },
+  {
+    id: "ai-apps",
+    question: "Can other AI apps work with my resumes?",
+    answer:
+      "Yes, if you allow it. Resuma can connect to AI apps on your computer that support the Model Context Protocol (MCP), such as a desktop AI assistant or a coding tool. They can read your resumes, check templates, and suggest changes that you review, apply, or undo in Resuma. The connection is off by default, protected by a token, and keeps your personal details hidden unless you choose to share them.",
   },
   {
     id: "contribute",
