@@ -396,8 +396,7 @@ export function BigCard() {
           <span className='font-semibold text-foreground'>Qwen3</span> model
           picked for your hardware, or any GGUF model from{" "}
           <span className='font-semibold text-foreground'>Hugging Face</span>.
-          You can also connect Ollama, LM Studio, or a cloud API with your own
-          key, or pick{" "}
+          Or connect Ollama, LM Studio, or a cloud API, or pick{" "}
           <span className='font-semibold text-foreground'>No AI</span> and
           download nothing.
         </div>
