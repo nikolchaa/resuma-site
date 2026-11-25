@@ -8,12 +8,14 @@ const ASSET_PATTERNS = {
   rpm: /\.x86_64\.rpm$/,
 };
 
+// `durable` keeps one cached copy shared by every Netlify edge node, so most
+// visitors get a cached answer and GitHub is asked about once per 15 minutes.
 const headers = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json",
   "Cache-Control": "public, max-age=300",
   "Netlify-CDN-Cache-Control":
-    "public, s-maxage=900, stale-while-revalidate=86400",
+    "public, durable, s-maxage=900, stale-while-revalidate=86400",
 };
 
 // Errors must never be cached, by the browser or the Netlify CDN.
