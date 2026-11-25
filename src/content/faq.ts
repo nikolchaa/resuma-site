@@ -36,7 +36,7 @@ export const FAQ: FaqItem[] = [
     id: "ai-optional",
     question: "Do I have to use AI?",
     answer:
-      "No, AI is entirely optional. Pick No AI during onboarding or later in Settings → AI Settings, and Resuma skips the model download and makes no AI requests. Writing, editing, templates, and PDF export all work without it; only the AI actions - job tailoring, trimming, enhancement, and Ask AI - are turned off. You can switch AI on at any time.",
+      "No, AI is entirely optional. Pick No AI during onboarding or later in Settings → AI Settings, and Resuma skips the model download and makes no AI requests. Writing, editing, templates, and PDF export all work without it; only the AI actions - tailoring a resume to a job, rewording entries, and Ask AI - are turned off. Checking a resume against a job ad's keywords still works. You can switch AI on at any time.",
   },
   {
     id: "models",
@@ -54,7 +54,7 @@ export const FAQ: FaqItem[] = [
     id: "platforms",
     question: "What platforms are supported?",
     answer:
-      "Resuma supports Windows, macOS (Apple Silicon-only), and Linux. We provide a `.exe` installer for Windows, a `.dmg` for macOS, and `.deb` and `.rpm` packages for Linux. If you're on an unsupported OS, you can still build it from source using Rust and Node.js.",
+      "Resuma runs on Windows, macOS, and Linux, on both x64 (Intel and AMD) and ARM64 computers. There's a `.exe` installer for Windows, including Windows on ARM; a `.dmg` for Macs with Apple silicon or Intel chips; and an AppImage that runs on any Linux distribution, plus `.deb` and `.rpm` packages. Local AI picks the llama.cpp build for your computer's processor. On anything else, you can build Resuma from source with Rust and Node.js.",
   },
   {
     id: "data",

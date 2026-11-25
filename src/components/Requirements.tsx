@@ -18,7 +18,8 @@ const SPECS: Spec[] = [
         label: "Windows",
         value: (
           <>
-            10 or 11, 64-bit (x86_64), <code>.exe</code>
+            10 or 11, on x64 (Intel or AMD) or ARM64 (Snapdragon),{" "}
+            <code>.exe</code>
           </>
         ),
       },
@@ -26,7 +27,7 @@ const SPECS: Spec[] = [
         label: "macOS",
         value: (
           <>
-            Apple Silicon (ARM64) only, <code>.dmg</code>
+            Apple silicon or Intel, <code>.dmg</code>
           </>
         ),
       },
@@ -34,8 +35,8 @@ const SPECS: Spec[] = [
         label: "Linux",
         value: (
           <>
-            Modern 64-bit distro (x86_64), <code>.deb</code> or{" "}
-            <code>.rpm</code>
+            Modern 64-bit distribution on x64 or ARM64: AppImage for any
+            distribution, or <code>.deb</code> and <code>.rpm</code>
           </>
         ),
       },
@@ -72,8 +73,8 @@ const SPECS: Spec[] = [
         label: "CPU",
         value: (
           <>
-            64-bit x86_64 or Apple Silicon, <code>AVX2</code> recommended on
-            x86_64
+            64-bit x64 or ARM64 (Apple silicon, Snapdragon, other ARM),{" "}
+            <code>AVX2</code> recommended on x64
           </>
         ),
       },
@@ -87,16 +88,16 @@ const SPECS: Spec[] = [
           <ul className='space-y-1'>
             <li>
               <span className='text-foreground'>Windows:</span> Vulkan (AMD,
-              NVIDIA, Intel), HIP (AMD with ROCm support), or CUDA 12.4
-              (NVIDIA)
+              NVIDIA, Intel), HIP (AMD with ROCm support), CUDA 12.4
+              (NVIDIA), or OpenCL (Snapdragon)
             </li>
             <li>
               <span className='text-foreground'>Linux:</span> Vulkan (AMD,
-              NVIDIA, Intel)
+              NVIDIA, Intel), on x64 and ARM64
             </li>
             <li>
-              <span className='text-foreground'>macOS:</span> Metal (built into
-              Apple Silicon)
+              <span className='text-foreground'>macOS:</span> Metal on Apple
+              silicon; Intel Macs run local AI on the CPU
             </li>
           </ul>
         ),
@@ -117,7 +118,8 @@ const SPECS: Spec[] = [
     rows: [
       {
         label: "Installer",
-        value: "~5MB (Windows), ~6MB (macOS), ~8MB (Linux)",
+        value:
+          "~5MB (Windows), ~6MB (macOS), ~8MB (.deb, .rpm), ~100MB (AppImage, which carries its own libraries)",
       },
       { label: "App", value: "~16MB installed" },
       {
@@ -129,6 +131,11 @@ const SPECS: Spec[] = [
         label: "Runtime",
         value:
           "~16MB (Metal), ~24MB (CPU), ~37MB (Vulkan), ~270MB (HIP), or ~715MB (CUDA, with NVIDIA's runtime files) to download",
+      },
+      {
+        label: "Job matching",
+        value:
+          "Optional ~640MB model that makes tailoring a resume to a job faster and more consistent with local AI",
       },
       {
         label: "Estimated total",
