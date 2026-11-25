@@ -54,7 +54,7 @@ export const FAQ: FaqItem[] = [
     id: "platforms",
     question: "What platforms are supported?",
     answer:
-      "Resuma runs on Windows, macOS, and Linux, on both x64 (Intel and AMD) and ARM64 computers. There's a `.exe` installer for Windows, including Windows on ARM; a `.dmg` for Macs with Apple silicon or Intel chips; and an AppImage that runs on any Linux distribution, plus `.deb` and `.rpm` packages. Local AI picks the llama.cpp build for your computer's processor. On anything else, you can build Resuma from source with Rust and Node.js.",
+      "Resuma runs on Windows, macOS, and Linux, on both x64 (Intel and AMD) and ARM64 computers. There's a `.exe` installer for Windows, including Windows on ARM; a `.dmg` for Macs with Apple silicon or Intel chips; and an AppImage that runs on any Linux distribution, plus `.deb` and `.rpm` packages. Local AI picks the llama.cpp build for your computer's processor. Windows on ARM, Intel Macs, and Linux on ARM are new and marked beta: every release is built and checked on them automatically, but they haven't been tried on real hardware yet. On anything else, you can build Resuma from source with Rust and Node.js.",
   },
   {
     id: "data",

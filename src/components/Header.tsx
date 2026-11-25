@@ -42,8 +42,12 @@ type ReleaseInfo = NonNullable<typeof __LATEST_RELEASE__>;
 type OS = "Windows" | "MacOS" | "Linux" | "Other";
 type Arch = "x64" | "arm64";
 
-/** `short` names the file on the main button, where the platform alone isn't enough. */
-type Choice = { key: ReleaseAssetKey; label: string; detail: string; short?: string };
+/**
+ * `short` names the file on the main button, where the platform alone isn't
+ * enough. `beta`: built and checked automatically, but not yet tried on real
+ * hardware (ARM computers and Intel Macs).
+ */
+type Choice = { key: ReleaseAssetKey; label: string; detail: string; short?: string; beta?: true };
 
 /** Every installer, per platform, as the download menus list them. */
 const PLATFORMS: {
@@ -60,7 +64,7 @@ const PLATFORMS: {
     Icon: WindowsLogo,
     choices: [
       { key: "windows-x64", label: "Windows", detail: "Intel or AMD (x64)" },
-      { key: "windows-arm64", label: "Windows on ARM", detail: "Snapdragon and other ARM", short: "ARM" },
+      { key: "windows-arm64", label: "Windows on ARM", detail: "Snapdragon and other ARM", short: "ARM", beta: true },
     ],
     pick: (arch) => (arch === "arm64" ? "windows-arm64" : "windows-x64"),
   },
@@ -70,7 +74,7 @@ const PLATFORMS: {
     Icon: AppleLogo,
     choices: [
       { key: "macos-arm64", label: "Apple silicon", detail: "M1 and newer", short: "Apple silicon" },
-      { key: "macos-x64", label: "Intel", detail: "Macs with Intel chips", short: "Intel" },
+      { key: "macos-x64", label: "Intel", detail: "Macs with Intel chips", short: "Intel", beta: true },
     ],
     // Safari doesn't tell, and nearly every Mac sold since 2021 is Apple silicon.
     pick: (arch) => (arch === "x64" ? "macos-x64" : "macos-arm64"),
@@ -83,9 +87,9 @@ const PLATFORMS: {
       { key: "appimage-x64", label: "AppImage", detail: "x64, any distribution", short: "AppImage" },
       { key: "deb-x64", label: ".deb", detail: "x64, Debian and Ubuntu" },
       { key: "rpm-x64", label: ".rpm", detail: "x64, Fedora and openSUSE" },
-      { key: "appimage-arm64", label: "AppImage", detail: "ARM64, any distribution", short: "AppImage, ARM" },
-      { key: "deb-arm64", label: ".deb", detail: "ARM64, Debian and Ubuntu" },
-      { key: "rpm-arm64", label: ".rpm", detail: "ARM64, Fedora and openSUSE" },
+      { key: "appimage-arm64", label: "AppImage", detail: "ARM64, any distribution", short: "AppImage, ARM", beta: true },
+      { key: "deb-arm64", label: ".deb", detail: "ARM64, Debian and Ubuntu", beta: true },
+      { key: "rpm-arm64", label: ".rpm", detail: "ARM64, Fedora and openSUSE", beta: true },
     ],
     pick: (arch) => (arch === "arm64" ? "appimage-arm64" : "appimage-x64"),
   },
@@ -256,7 +260,10 @@ function ChoiceItem({ choice, release }: { choice: Choice; release: ReleaseInfo 
     <DropdownMenuItem asChild>
       <a href={assetUrl(release, choice.key)} target='_blank' rel='noopener noreferrer'>
         <span className='flex flex-col'>
-          <span className='font-medium'>{choice.label}</span>
+          <span className='font-medium'>
+            {choice.label}
+            {choice.beta && <span className='ml-1.5 rounded-sm border px-1 text-[0.65rem] font-normal uppercase tracking-wide text-muted-foreground'>Beta</span>}
+          </span>
           <span className='text-xs text-muted-foreground'>{choice.detail}</span>
         </span>
         <span className='ml-auto text-xs tabular-nums text-muted-foreground'>
@@ -289,7 +296,12 @@ function Downloads({ release, os, arch }: { release: ReleaseInfo | null; os: OS;
                 <a href={assetUrl(release, key)} target='_blank' rel='noopener noreferrer'>
                   <Icon className='h-6 w-6' aria-hidden='true' />
                   Download for {name}
-                  {main.short && <span className='text-muted-foreground'>({main.short})</span>}
+                  {main.short && (
+                    <span className='text-muted-foreground'>
+                      ({main.short}
+                      {main.beta ? ", beta" : ""})
+                    </span>
+                  )}
                 </a>
               </Button>
               {/* Non-modal: a modal menu locks scrolling, which makes the
