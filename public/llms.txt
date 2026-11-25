@@ -1,8 +1,8 @@
 # Resuma
 
-> Resuma is a free, open-source (GPLv3) desktop application for building professional, ATS-friendly resumes with AI. The AI runs locally on your device by default; you can also bring your own model through Ollama, LM Studio, or a cloud API with your own key.
+> Resuma is a free, open-source (GPLv3) desktop application for building professional, ATS-friendly resumes. AI is optional: it runs locally on your device by default, you can bring your own model through Ollama, LM Studio, or a cloud API with your own key, or you can choose No AI and use Resuma without any model.
 
-Resuma is a Tauri desktop app (Rust + React) for Windows 10/11 (x86_64), macOS on Apple Silicon, and 64-bit Linux (.deb and .rpm). Resumes, settings, and AI models are stored locally and never uploaded or synced. Local AI uses llama.cpp with a Qwen3 model sized for the user's hardware, or any GGUF model downloaded from Hugging Face in the app. AI features can tailor a resume to a job description, trim unrelated content, and rewrite entries for ATS. Resumes export to PDF or plain text and move between devices as `.resume` files. The interface is available in English and Serbian.
+Resuma is a Tauri desktop app (Rust + React) for Windows 10/11 (x86_64), macOS on Apple Silicon, and 64-bit Linux (.deb and .rpm). Resumes, settings, and AI models are stored locally and never uploaded or synced. Local AI uses llama.cpp with a Qwen3 model sized for the user's hardware, or any GGUF model downloaded from Hugging Face in the app. With No AI, nothing is downloaded and no AI requests are made; everything except the AI actions keeps working. When AI is on, it can tailor a resume to a job description, trim unrelated content, and rewrite entries for ATS. Resumes export to PDF or plain text and move between devices as `.resume` files. The interface is available in English and Serbian.
 
 ## Links
 

@@ -182,7 +182,7 @@ export function HorizontalCard2() {
             AI Enhancement
           </h3>
           <p className='text-sm text-muted-foreground max-[26.125em]:hidden min-[43.9375em]:max-[51.75em]:hidden'>
-            Slide to reveal how AI improves your tone and impact.
+            Optional. Slide to see how AI sharpens your tone and impact.
           </p>
         </div>
       </Card>
@@ -340,7 +340,7 @@ export function BigCard() {
         {/* Badge */}
         <div className='flex items-center gap-2 text-xs font-medium bg-primary/10 text-primary-text px-3 py-1 rounded-full z-10'>
           <Sparkles className='w-3.5 h-3.5' />
-          Local by default
+          Optional, local by default
         </div>
 
         {/* Title */}
@@ -357,7 +357,10 @@ export function BigCard() {
           <span className='font-semibold text-foreground'>Qwen3</span> model
           picked for your hardware, or any GGUF model from{" "}
           <span className='font-semibold text-foreground'>Hugging Face</span>.
-          Or connect Ollama, LM Studio, or a cloud API with your own key.
+          You can also connect Ollama, LM Studio, or a cloud API with your own
+          key, or pick{" "}
+          <span className='font-semibold text-foreground'>No AI</span> and
+          download nothing.
         </div>
 
         {/* Watermark + Waves */}
