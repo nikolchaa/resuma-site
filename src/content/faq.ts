@@ -18,7 +18,7 @@ export const FAQ: FaqItem[] = [
     id: "free",
     question: "Is Resuma free to use?",
     answer:
-      "Yes - Resuma is 100% free and open-source under the GNU GPLv3 license. Cloud AI providers are optional and bill you directly for their API usage.",
+      "Yes - Resuma is 100% free and open-source under the GNU GPLv3 license. AI is optional, and if you choose a cloud AI provider, it bills you directly for its API usage.",
     link: {
       prefix: " You can find more about the licensing here: ",
       label: "Project License",
@@ -30,13 +30,19 @@ export const FAQ: FaqItem[] = [
     id: "offline",
     question: "Does Resuma work offline?",
     answer:
-      "Yes, with the default local AI. Resuma is a Tauri desktop application, and its AI runs on your machine. You only need an internet connection once, during onboarding, to download the AI model and runtime. After that, everything works offline. If you choose a cloud AI provider instead, AI features need an internet connection.",
+      "Yes. Resuma is a Tauri desktop application, and everything except cloud AI works without an internet connection. With No AI, Resuma never downloads anything. With the default local AI, you need a connection once, during onboarding, to download the AI model and runtime; after that, everything works offline. If you choose a cloud AI provider, AI features need an internet connection.",
+  },
+  {
+    id: "ai-optional",
+    question: "Do I have to use AI?",
+    answer:
+      "No, AI is entirely optional. Pick No AI during onboarding or later in Settings → AI Settings, and Resuma skips the model download and makes no AI requests. Writing, editing, templates, and PDF export all work without it; only the AI actions - job tailoring, trimming, enhancement, and Ask AI - are turned off. You can switch AI on at any time.",
   },
   {
     id: "models",
     question: "Which AI models can I use?",
     answer:
-      "By default, Resuma downloads a Qwen3 model sized for your hardware (0.6B, 4B, or 14B) and runs it locally with llama.cpp. You can also search thousands of GGUF models on Hugging Face and download them right in the app, connect a model host like Ollama or LM Studio, or use a cloud API - OpenAI, Anthropic, Google Gemini, DeepSeek, Kimi, or any OpenAI-compatible endpoint - with your own API key.",
+      "If you turn AI on, Resuma by default downloads a Qwen3 model sized for your hardware (0.6B, 4B, or 14B) and runs it locally with llama.cpp. You can also search thousands of GGUF models on Hugging Face and download them right in the app, connect a model host like Ollama or LM Studio, or use a cloud API - OpenAI, Anthropic, Google Gemini, DeepSeek, Kimi, or any OpenAI-compatible endpoint - with your own API key.",
   },
   {
     id: "platforms",
@@ -48,7 +54,7 @@ export const FAQ: FaqItem[] = [
     id: "data",
     question: "Where is my data stored?",
     answer:
-      "Resuma stores your resumes, settings, and AI models locally on your device, and never uploads or syncs your resumes to a server. With the default local AI, nothing leaves your device. If you choose a cloud AI provider, the resume text and job description for each AI action are sent to that provider under their terms. API keys are kept in your system's credential manager, and Discord status is optional and off by default.",
+      "Resuma stores your resumes, settings, and AI models locally on your device, and never uploads or syncs your resumes to a server. With No AI or the default local AI, nothing leaves your device. If you choose a cloud AI provider, the resume text and job description for each AI action are sent to that provider under their terms. API keys are kept in your system's credential manager, and Discord status is optional and off by default.",
     link: {
       prefix: " Read more in the ",
       label: "Privacy Policy",

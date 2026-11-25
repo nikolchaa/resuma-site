@@ -89,8 +89,8 @@ export function App() {
           />
           <ScrollReveal>
             <p className='text-muted-foreground text-center max-w-xl mx-auto mt-3 text-balance sm:text-lg'>
-              Resuma is a privacy-first resume builder, powered by local AI or
-              any model you choose.
+              Resuma is a privacy-first resume builder. AI is optional: run it
+              locally, bring any model you choose, or turn it off.
             </p>
           </ScrollReveal>
           <Bento />

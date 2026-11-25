@@ -46,6 +46,10 @@ const SPECS: Spec[] = [
     icon: Globe,
     rows: [
       {
+        label: "No AI",
+        value: "No internet connection needed. Nothing is downloaded.",
+      },
+      {
         label: "Local AI",
         value:
           "Default. Internet is only needed during onboarding to download the model and runtime; after that, everything works fully offline.",
@@ -73,7 +77,10 @@ const SPECS: Spec[] = [
           </>
         ),
       },
-      { label: "RAM", value: "8GB minimum, 16GB+ recommended" },
+      {
+        label: "RAM",
+        value: "8GB minimum for local AI, 16GB+ recommended",
+      },
       {
         label: "GPU (optional)",
         value: (
@@ -99,7 +106,7 @@ const SPECS: Spec[] = [
         value: "6GB+ runs Qwen3 4B on the GPU, 12GB+ runs Qwen3 14B",
       },
       {
-        label: "Cloud or remote AI",
+        label: "No AI or remote AI",
         value: "No GPU or extra RAM needed",
       },
     ],
@@ -125,7 +132,7 @@ const SPECS: Spec[] = [
       {
         label: "Estimated total",
         value:
-          "~850MB to ~11GB depending on runtime and model, none of it needed with Ollama, LM Studio, or a cloud API",
+          "~850MB to ~11GB depending on runtime and model, none of it needed with No AI, Ollama, LM Studio, or a cloud API",
       },
     ],
   },
