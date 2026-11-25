@@ -204,12 +204,14 @@
 
 @layer components {
   /* Hero entrance: CSS-only so it starts with the first paint instead of
-     waiting for JavaScript (the hero text is the largest contentful paint). */
+     waiting for JavaScript (the hero text is the largest contentful paint).
+     Opacity and transform only: the GPU compositor runs them off the main
+     thread, which is busy hydrating while the hero animates. A blur here
+     would repaint every frame on slow phones. */
   @keyframes hero-in {
     from {
       opacity: 0;
       transform: translateY(24px);
-      filter: blur(6px);
     }
   }
 
@@ -219,16 +221,20 @@
   }
 
   /* Scroll reveals (ScrollReveal.tsx). Visible by default; hidden only after
-     hydration marks the page reveal-ready and the element is off screen. */
+     hydration marks the page reveal-ready and the element is off screen.
+     Blocks (cards, paragraphs, FAQ items) fade with compositor-only
+     properties; only the few small headline words keep the blur, where its
+     repaint cost is negligible. */
   .reveal,
   .reveal-word {
-    transition-property: opacity, transform, filter;
+    transition-property: opacity, transform;
     transition-duration: 0.6s;
     transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
 
   .reveal-word {
     display: inline-block;
+    transition-property: opacity, transform, filter;
     transition-duration: 0.5s;
     transition-delay: calc(var(--i, 0) * 50ms);
   }
@@ -237,6 +243,9 @@
   .reveal-ready .reveal-text:not([data-inview]) .reveal-word {
     opacity: 0;
     transform: translateY(24px);
+  }
+
+  .reveal-ready .reveal-text:not([data-inview]) .reveal-word {
     filter: blur(6px);
   }
 
@@ -286,4 +295,18 @@
 .bento [data-slot="card"]:hover {
   border-color: color-mix(in oklab, var(--primary) 45%, transparent);
   box-shadow: 0 18px 40px -24px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+/* The wave in the AI card (Waves.svg) morphs its path forever, and path
+   animations repaint on the main thread. Run it only while the card is on
+   screen, and not at all for reduced motion. Unlayered and more specific
+   than the SVG's own .path-0 rule, which is inlined later in the page. */
+.reveal-ready .reveal:not([data-inview]) svg .path-0 {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  svg .path-0 {
+    animation: none;
+  }
 }
