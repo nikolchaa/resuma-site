@@ -281,7 +281,10 @@ function ChoiceItem({ choice, release }: { choice: Choice; release: ReleaseInfo 
 function Downloads({ release, os, arch }: { release: ReleaseInfo | null; os: OS; arch: Arch | null }) {
   return (
     <>
-      <div className='gap-4 hidden md:flex'>
+      {/* The three split buttons need ~990px with their detail labels and
+          ~800px without, so they start at lg with the details at xl; below
+          lg, one menu lists every installer. */}
+      <div className='hidden lg:flex flex-wrap justify-center gap-4 px-4'>
         {PLATFORMS.map(({ os: platform, name, Icon, choices, pick }) => {
           const highlighted = os === platform;
           const key = pick(os === platform ? arch : null);
@@ -297,7 +300,7 @@ function Downloads({ release, os, arch }: { release: ReleaseInfo | null; os: OS;
                   <Icon className='h-6 w-6' aria-hidden='true' />
                   Download for {name}
                   {main.short && (
-                    <span className='text-muted-foreground'>
+                    <span className='hidden xl:inline text-muted-foreground'>
                       ({main.short}
                       {main.beta ? ", beta" : ""})
                     </span>
@@ -332,7 +335,7 @@ function Downloads({ release, os, arch }: { release: ReleaseInfo | null; os: OS;
         })}
       </div>
 
-      <div className='flex gap-4 md:hidden'>
+      <div className='flex gap-4 lg:hidden'>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button
