@@ -121,7 +121,7 @@ const SPECS: Spec[] = [
       {
         label: "Installer",
         value:
-          "~5MB (Windows), ~6MB (macOS), ~8MB (.deb, .rpm), ~100MB (AppImage, which carries its own libraries)",
+          "~5MB (Windows), ~7MB (macOS), ~9MB (.deb, .rpm), ~96MB (AppImage, which carries its own libraries)",
       },
       { label: "App", value: "~16MB installed" },
       {
