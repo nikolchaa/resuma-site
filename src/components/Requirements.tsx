@@ -36,7 +36,9 @@ const SPECS: Spec[] = [
         value: (
           <>
             Modern 64-bit distribution on x64 or ARM64: AppImage for any
-            distribution, or <code>.deb</code> and <code>.rpm</code>
+            distribution, or <code>.deb</code> and <code>.rpm</code>. Local AI
+            on ARM64 needs glibc 2.38 or newer (Ubuntu 24.04, Debian 13,
+            Fedora 39, or later)
           </>
         ),
       },
