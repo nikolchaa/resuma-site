@@ -7,13 +7,17 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)
 ![Visual Studio Code](https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white)
 
-Resuma is an open-source desktop application for building beautiful, professional resumes using local AI models. Your data never leaves your device.
+Resuma is an open-source desktop application for building beautiful, professional resumes using local AI models. With the default local setup, your data never leaves your device.
 
-Powered by Tauri, Rust, React (TSX), and llama.cpp, Resuma brings the power of private AI directly to your desktop, ensuring fast performance and complete privacy.
+Powered by Tauri, Rust, React (TSX), and llama.cpp, Resuma brings the power of private AI directly to your desktop, ensuring fast performance and complete privacy. If you would rather use a model you already host or pay for, you can point it at Ollama, LM Studio, or a cloud API with your own key instead.
 
-> ⚡ **Offline and private**: No external servers, complete control over your data.
+> ⚡ **Local by default**: Your resumes never reach an external server unless you configure one yourself.
 
-> ⚡ **Cross-platform**: Works on Windows, macOS, and Linux.
+> 🔐 **Encrypted on disk**: Resumes and settings are encrypted, with a recovery key and password-protected backups.
+
+> ⚡ **Cross-platform**: Works on Windows, macOS, and Linux, on x64 and ARM64.
+
+This repository holds the website, [resuma.download](https://resuma.download). The app itself lives in [nikolchaa/resuma](https://github.com/nikolchaa/resuma).
 
 ## 💖 Support
 
@@ -21,22 +25,41 @@ Powered by Tauri, Rust, React (TSX), and llama.cpp, Resuma brings the power of p
 
 ## 🔧 Features
 
-- ✍️ Offline AI resume writing
+- ✍️ Offline AI resume writing, or no AI at all: everything except the AI actions works without a model
 - 📂 Full local data storage (no external servers)
+- 🔐 Resumes and settings encrypted on disk, with a recovery key and encrypted backups (see [Security](#-security))
 - ✨ Elegant onboarding and user experience
+- 🎯 Tailoring to a job ad: AI suggests entries to leave out and new wording for the rest, and you apply, discard, or undo each suggestion
+- 🧭 Optional job matching model that makes tailoring faster and more consistent with local AI
+- 🔎 Keyword coverage check against a job ad, with or without AI
+- 🧩 Simple, Design, and Source editor modes, from forms only to editing the resume and its template as Resuma Markup (`.rsm`)
+- 📄 Four built-in templates (Professional, Modern, Compact, and the two-column Sidebar), eight fonts for Latin and Cyrillic text, and your own template library
+- 🖼️ Live PDF preview with page splitting, and PDF and plain-text export
 - ⚙️ Advanced model configuration (mmap, mlock, gpu_layers, context size, etc.)
+- 🤗 Live model discovery: search thousands of GGUF models on Hugging Face, pick a quantization, and download it in-app
 - 👨‍💼 Customizable personal information, education, projects, skills, and more
-- 📄 Dynamic PDF generation with LaTeX-inspired layouts
-- 🖋️ AI-powered resume section enhancement and trimming based on job descriptions
-- 🧠 Local AI processing for resume tailoring, keyword optimization, and ATS-friendly formatting
-- 🖼️ PDF preview with page splitting and dynamic layout adjustments
-- 🛠️ Supports multiple local models and hardware backends (CPU, CUDA, HIP, Vulkan)
-- 🚀 Cross-platform support: Windows, macOS, and Linux
-- 🔍 Advanced search and filtering for resume entries
+- 🛠️ Supports multiple local models and hardware backends (CPU, CUDA, HIP, Vulkan, Metal, OpenCL)
+- ☁️ Optional cloud APIs (Anthropic, OpenAI, Gemini, DeepSeek, Kimi, or a custom endpoint) using your own key
+- 🖧 Optional local model hosts (Ollama, LM Studio, or any OpenAI-compatible endpoint)
+- 🔌 Optional MCP connection so other AI apps on your computer can read your resumes, check templates and suggest changes you approve (off by default, token-protected, personal details hidden unless you share them)
+- 🚀 Cross-platform support: Windows, macOS, and Linux, on x64 and ARM64
+- 🌍 Interface in English, Serbian, Spanish, Russian, French, German, and Portuguese
+- 🔍 Search across your resumes
 - 🎨 Theming support with light/dark modes
 - 🧱 Modular and extendable architecture for future features
 - 🧑‍💻 Developer-friendly setup with clear code structure and CLI integration
-- 🔐 Secure by design: no telemetry and no analytics.
+
+## 🔐 Security
+
+Resuma keeps your data on your computer and protects it there:
+
+- **Encrypted at rest**: resumes and settings are encrypted with AES-256-GCM. The key is created on your computer the first time Resuma runs and kept in your operating system's credential manager (Windows Credential Manager, macOS Keychain, or the Linux Secret Service), so Resuma opens your data without asking for a password. Where no credential manager is reachable, such as a headless Linux setup, the key goes into an encrypted file instead, and Resuma tells you so.
+- **Recovery key**: shown once when encryption is set up, and again on request in **Settings → App Settings → Data protection**. With it, your data folder opens on another computer, or here if the credential manager ever loses the key.
+- **Encrypted backups**: export the resumes you pick and, if you want, your profile and settings to one file, protected by a password you choose (Argon2id). Backups are the only way resumes and settings leave Resuma, and they are always encrypted.
+- **API keys in the credential manager**: keys for cloud AI providers are never written to the settings file or to backups.
+- **No telemetry or analytics**: nothing is uploaded or synced. The only request Resuma makes on its own is an update check at start-up, which carries nothing about you and can be turned off.
+
+Encryption protects copies of your data folder, such as backups, cloud-synced folders, or a lost disk. It doesn't protect against programs running under your own account, which can unlock the data the same way Resuma does. The [Privacy Policy](https://github.com/nikolchaa/resuma/blob/main/PRIVACY.md) has the details.
 
 ## 📦 Installation
 
@@ -56,6 +79,17 @@ npm run tauri dev
 ```
 
 > **Note:** Development builds may contain experimental features. Make sure you have Rust and Tauri prerequisites installed. See the [Tauri setup guide](https://v2.tauri.app/start/prerequisites/).
+
+## 🌐 Running the Website
+
+The website is built with Preact, Vite, and Tailwind CSS, and hosted on Netlify, whose functions in `netlify/functions` serve the latest release's installers and the GitHub star count.
+
+```bash
+git clone https://github.com/nikolchaa/resuma-site.git
+cd resuma-site
+npm install
+npm run dev
+```
 
 ## 🔒 License
 
@@ -87,6 +121,6 @@ Questions, ideas, or contributions? Reach out to us at [contact@nikolchaa.com](m
 
 ## 📄 Legal
 
-- [Terms of Service](./TERMS.md)
-- [Privacy Policy](./PRIVACY.md)
-- [Third-Party Software Disclosure](./THIRD_PARTY.md)
+- [Terms of Service](https://github.com/nikolchaa/resuma/blob/main/TERMS.md)
+- [Privacy Policy](https://github.com/nikolchaa/resuma/blob/main/PRIVACY.md)
+- [Third-Party Software Disclosure](https://github.com/nikolchaa/resuma/blob/main/THIRD_PARTY.md)
