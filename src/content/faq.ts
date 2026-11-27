@@ -48,7 +48,7 @@ export const FAQ: FaqItem[] = [
     id: "templates",
     question: "Can I change how my resume looks?",
     answer:
-      "Yes. Resuma comes with four built-in templates - Professional, Modern, Compact, and the two-column Sidebar - and an editor mode for every level of control. Simple shows only the forms. Design adds colours, section order, renamed sections, and custom sections for languages, volunteering, certificates, and more. Source lets you edit the resume and its template as text in Resuma Markup (`.rsm`), with live error checking. Templates you make can be saved to My templates and reused in any resume, and with AI turned on, Ask AI can suggest content or template changes for you to review before applying. The preview updates as you type, without flashing.",
+      "Yes. Resuma comes with four built-in templates - Professional, Modern, Compact, and the two-column Sidebar - eight fonts, sans and serif, for Latin and Cyrillic text, and an editor mode for every level of control. Simple shows only the forms. Design adds colours, section order, renamed sections, and custom sections for languages, volunteering, certificates, and more. Source lets you edit the resume and its template as text in Resuma Markup (`.rsm`), with live error checking. Templates you make can be saved to My templates and reused in any resume, and with AI turned on, Ask AI can suggest content or template changes for you to review before applying. The preview updates as you type, without flashing.",
   },
   {
     id: "platforms",
@@ -72,7 +72,7 @@ export const FAQ: FaqItem[] = [
     id: "export",
     question: "Can I import/export my resumes?",
     answer:
-      "Yes. You can export your resumes as PDF or plain text, import and export `.resume` files to move single resumes between devices, and create a password-protected encrypted backup of all your resumes and your profile to restore on another computer.",
+      "Yes. You can export a resume as PDF or plain text. To move resumes to another computer, export an encrypted backup: one password-protected file with the resumes you pick and, if you like, your profile and settings, which you then import on the other computer.",
   },
   {
     id: "ai-apps",
