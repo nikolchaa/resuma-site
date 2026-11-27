@@ -133,9 +133,9 @@ const SPECS: Spec[] = [
         label: "Runtime",
         value: (
           <ul className='space-y-1'>
-            <li>~12MB to ~24MB (CPU), ~14MB (OpenCL), ~16MB (Metal), or ~25MB to ~37MB (Vulkan)</li>
-            <li>~430MB to ~745MB (HIP, with AMD's ROCm libraries and the kernels for your GPU: least for Radeon RX 6000, most for RX 9000)</li>
-            <li>~715MB (CUDA, with NVIDIA's runtime files)</li>
+            <li>~12MB to ~24MB (CPU), ~14MB (OpenCL), ~16MB (Metal), or ~25MB to ~37MB (Vulkan) to download</li>
+            <li>HIP: ~430MB to ~745MB to download, with AMD's ROCm libraries and the kernels for your GPU (least for Radeon RX 6000, most for RX 9000), and ~1.4GB to ~1.6GB once unpacked</li>
+            <li>CUDA: ~715MB to download, with NVIDIA's runtime files, and ~1.3GB once unpacked</li>
           </ul>
         ),
       },
@@ -147,7 +147,7 @@ const SPECS: Spec[] = [
       {
         label: "Estimated total",
         value:
-          "~850MB to ~10GB of downloads depending on runtime and model, none of it needed with No AI, Ollama, LM Studio, or a cloud API",
+          "~850MB to ~10GB of downloads depending on runtime and model, and up to ~11GB on disk with the 14B model and HIP or CUDA; none of it needed with No AI, Ollama, LM Studio, or a cloud API",
       },
     ],
   },
