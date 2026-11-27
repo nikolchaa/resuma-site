@@ -30,7 +30,7 @@ export const FAQ: FaqItem[] = [
     id: "offline",
     question: "Does Resuma work offline?",
     answer:
-      "Yes. Resuma is a Tauri desktop application, and everything except cloud AI works without an internet connection. With No AI, Resuma downloads no model or runtime and makes no AI requests. With the default local AI, you need a connection once, during onboarding, to download the AI model and runtime; after that, everything works offline. If you choose a cloud AI provider, AI features need an internet connection.",
+      "Yes. Resuma is a Tauri desktop application, and everything except cloud AI works without an internet connection. With No AI, Resuma downloads no model or runtime and makes no AI requests. With the default local AI, you need a connection once, during onboarding, to download the AI model and runtime; after that, everything works offline. If you choose a cloud AI provider, AI features need an internet connection. When it's online, Resuma also asks GitHub at start-up whether a newer version is out, sending nothing about you; you can turn that off in Settings.",
   },
   {
     id: "ai-optional",
