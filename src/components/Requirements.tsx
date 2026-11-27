@@ -121,9 +121,9 @@ const SPECS: Spec[] = [
       {
         label: "Installer",
         value:
-          "~5MB (Windows), ~7MB (macOS), ~9MB (.deb, .rpm), ~96MB (AppImage, which carries its own libraries)",
+          "~6MB (Windows), ~8MB (macOS), ~9MB (.deb, .rpm), ~93MB (AppImage, which carries its own libraries)",
       },
-      { label: "App", value: "~16MB installed" },
+      { label: "App", value: "~18MB (Windows) to ~26MB (Linux) installed" },
       {
         label: "Model",
         value:
@@ -131,8 +131,13 @@ const SPECS: Spec[] = [
       },
       {
         label: "Runtime",
-        value:
-          "~16MB (Metal), ~24MB (CPU), ~37MB (Vulkan), ~270MB (HIP), or ~715MB (CUDA, with NVIDIA's runtime files) to download",
+        value: (
+          <ul className='space-y-1'>
+            <li>~12MB to ~24MB (CPU), ~14MB (OpenCL), ~16MB (Metal), or ~25MB to ~37MB (Vulkan)</li>
+            <li>~430MB to ~745MB (HIP, with AMD's ROCm libraries and the kernels for your GPU: least for Radeon RX 6000, most for RX 9000)</li>
+            <li>~715MB (CUDA, with NVIDIA's runtime files)</li>
+          </ul>
+        ),
       },
       {
         label: "Job matching",
