@@ -33,6 +33,10 @@ npm run dev
 
 Issues and pull requests about the website are welcome here. Anything about the app itself goes to [nikolchaa/resuma](https://github.com/nikolchaa/resuma).
 
+## License
+
+The website's code is licensed under the [GNU GPLv3](./LICENSE), like Resuma itself. The Resuma name and logo aren't covered by it: see below.
+
 ## Trademark
 
 "Resuma™" and the Resuma™ logo are trademarks of Nikola Ranđelović. See the [Trademark Policy](https://github.com/nikolchaa/resuma/blob/main/TRADEMARK.md) for details.
